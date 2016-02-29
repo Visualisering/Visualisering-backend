@@ -2,6 +2,7 @@
 const updateStudentService = require('../service/update-student-service.js');
 const schedule = require('node-schedule');
 const geoLocationService = require('../service/geolocation-service.js');
+let User= require('../models/user.js');
 
 module.exports = {
     init(){
@@ -12,7 +13,8 @@ module.exports = {
             let studentWithLatLong = [];
             studentArray.forEach((student)=>{
                 geoLocationService.getLatLong(student.city).then((latlong)=>{
-                        console.log(latlong);
+                    studentWithLatLong.push(new User(student.services, student.city, latlong.lat, latlong.lng));
+                    console.log(studentWithLatLong);
                 }, function(error){
                     
                 });
