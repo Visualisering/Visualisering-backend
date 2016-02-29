@@ -12,7 +12,7 @@ module.exports = {
             let studentWithLatLong = [];
             studentArray.forEach((student)=>{
                 geoLocationService.getLatLong(student.city).then((latlong)=>{
-                        
+                        console.log(latlong);
                 }, function(error){
                     
                 });

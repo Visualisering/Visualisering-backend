@@ -11,8 +11,20 @@
     "studentType":"campus",
     "username":"sk222sw"
   },
+  {
+    "city":"Washington",
+    "created":"2015-08-27T12:41:36.251Z",
+    "firstname":"Anna",
+    "lastname":"Iosif",
+    "program":"student",
+    "services":{
+      "github":"Angamanga"
+    },
+    "studentType":"campus",
+    "username":"ki222bj"
+  },
     {
-    "city":"Falsterbo",
+    "city":"Salem",
     "created":"2015-08-27T13:33:33.607Z",
     "firstname":"Johanna",
     "lastname":"Szepanski",
@@ -24,7 +36,7 @@
     "username":"js223kz"
   },
     {
-    "city":"Boras",
+    "city":"Paris",
     "created":"2015-08-27T13:33:33.607Z",
     "firstname":"Johanna",
     "lastname":"Cornejo",
@@ -36,7 +48,7 @@
     "username":"jc222fi"
   },
     {
-    "city":"Umea",
+    "city":"Umeå",
     "created":"2015-08-27T13:33:33.607Z",
     "firstname":"Mattias",
     "lastname":"Wikström",
@@ -48,7 +60,7 @@
     "username":"mw222rs"
   },
     {
-    "city":"Vaxjo",
+    "city":"Växjö",
     "created":"2015-08-27T13:33:33.607Z",
     "firstname":"Robin",
     "lastname":"Karlsson",
