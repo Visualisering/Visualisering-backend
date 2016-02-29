@@ -2,7 +2,9 @@
 const updateStudentService = require('../service/update-student-service.js');
 const schedule = require('node-schedule');
 const geoLocationService = require('../service/geolocation-service.js');
+const fs = require('fs');
 let User= require('../models/user.js');
+
 
 module.exports = {
     init(){
@@ -10,14 +12,22 @@ module.exports = {
             console.log('scheduling...');
             let studentsWithLatLong = [];
             updateStudentService.getStudents().then((studentArray)=>{
-            studentArray.forEach((student)=>{
-                geoLocationService.getLatLong(student.city).then((latlong)=>{
-                    studentsWithLatLong.push(new User(student.services, student.city, latlong.lat, latlong.lng));
+                studentArray.forEach((student)=>{
+                    geoLocationService.getLatLong(student.city).then((latlong)=>{
+                        studentsWithLatLong.push(new User(student.services, student.city, latlong.lat, latlong.lng));
 
                 }, function(error){
                     
                 }).then(()=>{
-                    console.log(studentsWithLatLong);
+                    
+                    let path = __dirname+'/../../datasets/students.json';
+                    fs.writeFile(path,JSON.stringify(studentsWithLatLong), (error)=>{
+                         if (error) {
+                           console.error("write error:  " + error.message);
+                         } else {
+                           console.log("Successful Write to " + path);
+                         }
+                    });
                 });
             });
     
