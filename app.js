@@ -7,10 +7,6 @@ const sphere = require("./src/data-processors/sphere");
 const server = httpServer.init();
 const wss = new WebSocketServer({server});
 
-// Hookup datastore and processors
-sphere.dataSet()
-  .then(commits => store.dispatch(actions.addLatestCommits(commits)));
-
 store.subscribe(
   () => {
     if (store.getState()) {
