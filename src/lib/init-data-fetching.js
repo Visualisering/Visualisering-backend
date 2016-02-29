@@ -8,15 +8,16 @@ module.exports = {
     init(){
         schedule.scheduleJob('/4 * * * * *',()=>{
             console.log('scheduling...');
-            
-            updateStudentService.getStudents().then(function(studentArray){
-            let studentWithLatLong = [];
+            let studentsWithLatLong = [];
+            updateStudentService.getStudents().then((studentArray)=>{
             studentArray.forEach((student)=>{
                 geoLocationService.getLatLong(student.city).then((latlong)=>{
-                    studentWithLatLong.push(new User(student.services, student.city, latlong.lat, latlong.lng));
-                    console.log(studentWithLatLong);
+                    studentsWithLatLong.push(new User(student.services, student.city, latlong.lat, latlong.lng));
+
                 }, function(error){
                     
+                }).then(()=>{
+                    console.log(studentsWithLatLong);
                 });
             });
     
