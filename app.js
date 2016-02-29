@@ -1,5 +1,6 @@
 const WebSocketServer = require("ws").Server;
 const httpServer = require("./src/lib/http-server");
+<<<<<<< HEAD
 const actions = require("./src/store/actions");
 const store = require("./src/store/store");
 const sphere = require("./src/data-processors/sphere");
@@ -12,9 +13,13 @@ store.subscribe(
     if (store.getState()) {
       const data = store.getState();
       const action = JSON.stringify({type: "BACKEND_DATA", data});
+=======
+const initDataFetching = require("./src/lib/init-data-fetching.js");
+>>>>>>> scheduling data fetching
 
       console.log(data);
 
+<<<<<<< HEAD
       wss.broadcast(action);
     }
   }
@@ -38,3 +43,7 @@ wss.on("connection", ws => {
     }
   });
 });
+=======
+const server = httpServer.init();
+initDataFetching.init();
+>>>>>>> scheduling data fetching
