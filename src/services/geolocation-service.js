@@ -20,7 +20,10 @@ module.exports={
             
             checkCityExist(city).then(function(cityObject){
                 if(!cityObject){
-                console.log(cityObject)
+                    getGeoLocationFromApi(city).then((data)=>{
+                        console.log(data);
+                    })
+                
                 }
             });
          

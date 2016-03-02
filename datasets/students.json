@@ -11,6 +11,18 @@
     "studentType":"campus",
     "username":"sk222sw"
   },
+  {
+    "city":"Uppsala",
+    "created":"2015-08-27T12:41:36.251Z",
+    "firstname":"Anna",
+    "lastname":"Iosif",
+    "program":"student",
+    "services":{
+      "github":"Angamanga"
+    },
+    "studentType":"campus",
+    "username":"ki222bj"
+  },
     {
     "city":"Falsterbo",
     "created":"2015-08-27T13:33:33.607Z",
