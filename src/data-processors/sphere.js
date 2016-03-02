@@ -1,26 +1,50 @@
+"use strict";
 const githubService = require("../services/github-service");
 const studentService = require("../services/student-service");
-
-const process = commits => {
-  return Promise.all(commits.map(commit => {
-    return new Promise((resolve, reject) => {
-      const username = commit.email.split("@")[0];
-      studentService.find_by_username(username)
-                    .then(student => resolve({lng: student.lng,
-                                              lat: student.lat,
-                                              time: Date.parse(commit.date)}));
-    });
-  }));
-};
+const geoLocationService = require("../services/geolocation-service");
+const fs = require('fs');
+const config = JSON.parse(fs.readFileSync('./config.json'));
 
 module.exports = {
+    process(githubPayload){
+        let githubPush = JSON.parse(githubPayload);
+        return new Promise((resolve, reject) =>{
+            let newCommit = {
+                username: githubPush.head_commit.committer.username,
+                timestamp: githubPush.head_commit.timestamp,
+                message: githubPush.head_commit.message,
+                owner: githubPush.repository.owner.name,
+                lat: undefined,
+                lng: undefined,
+                blobs: undefined
+            };
 
-  dataSet() {
-    return new Promise((resolve, reject) => {
-      githubService.latestCommits("Visualisering", "Visualisering-frontend")
-                  .then(process)
-                  .then(resolve);
-    });
-  }
-
+                console.log(newCommit.username);
+            studentService.find_by_username(newCommit.username)
+                .then(function(student){
+                    console.log("student från sphere" + student);
+                    geoLocationService.getLatLong(student.city)
+                        .then(function(position){
+                            newCommit.lat = position.lat;
+                            newCommit.lng = position.lng;
+                        });
+                    githubService.getBlobs(githubPush)
+                        .then(function(student){
+                        //här ska positionen hämtas
+                        }); 
+                })
+                .catch(function(err) {
+                console.log("Failed:", err);
+                });              
+        });
+    }
 };
+
+ /* dataSet() {
+    return new Promise((resolve, reject) => {
+      githubService.getBlobs()
+                  .then(process)
+                  .then(resolve)
+                  .catch();
+    });
+  }*/

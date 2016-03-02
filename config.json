@@ -1,0 +1,10 @@
+{
+    "geolocation" : "openstreetmap",
+    "geoentry" : "http://nominatim.openstreetmap.org/search?format=json&city=",
+    "github" : " https://api.github.com/repos/",
+    "ghentry" : "empty",
+    "updatestudent" : "./datasets/students-api.json",
+    "schedule"      : "/10 * * * * *",
+    "owner"         : "meteor",
+    "repo"          : "meteor"
+}
