@@ -1,6 +1,6 @@
 "use strict";
 const http = require('http');
-const sphere = require('../data-processors/sphere');
+const webhookService = require('../services/webhook-service');
 
 module.exports = {
 
@@ -19,10 +19,12 @@ module.exports = {
             let data = '';
             req.on('data', function(chunk) {
                 data += chunk;
+                           
+
             });
-            
             req.on('end', function() {
-              sphere.process(data);
+              
+              webhookService.process(data);
               res.writeHead(200, "OK", {'Content-Type': 'text/html'});
               res.end();
             });

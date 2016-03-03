@@ -11,7 +11,6 @@ const request = require('request');
 //returnera position
 module.exports={
     getPosition(city){
-        console.log(city);
         return new Promise(function (resolve, reject) {
             let position = {
               lat: undefined,
@@ -20,8 +19,8 @@ module.exports={
             
             checkCityExist(city).then(function(cityObject){
                 if(!cityObject){
-                    getGeoLocationFromApi(city).then((data)=>{
-                        console.log(data);
+                    getGeoLocationFromApi(city).then((response)=>{
+                        resolve(response);
                     })
                 
                 }
@@ -47,7 +46,6 @@ function getGeoLocationFromApi(city){
       
         return new Promise(function(resolve,reject){
             request.get(geoLocationApiAddress+encodeURI(city), function (err, res) {
-                console.log(config.geoentry);
                 if(err){
                     reject(err.statusCode);
                 }
