@@ -1,4 +1,5 @@
 const initialState = require("./initial-state");
+const _ = require("lodash");
 
 module.exports = (currentState, action) => {
   switch (action.type) {
@@ -8,10 +9,10 @@ module.exports = (currentState, action) => {
             currentState, 
             {
                 commits: action.commits
-                
             });
+            
     case "ADD_POSTIONS":
-      
+     console.log(action.positions);
         return Object.assign(
             {},
             currentState,
@@ -19,7 +20,7 @@ module.exports = (currentState, action) => {
                 sphere:{
                     data: currentState.sphere.data.concat(action.positions)
                 }
-                });
+        });
             
     default: return currentState || initialState;
     }

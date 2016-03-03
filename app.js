@@ -31,7 +31,8 @@ wss.on("connection", ws => {
       const action = JSON.parse(message);
       console.log("Received action from client:");
       console.log(action);
-      store.dispatch(action);
+      ws.send(action);
+      // store.dispatch(action);
     } catch (e) {
       console.error(e.message);
       ws.send("Unable to parse JSON string.");

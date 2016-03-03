@@ -6,5 +6,7 @@
     "updatestudent" : "./datasets/students-api.json",
     "schedule"      : "/10 * * * * *",
     "owner"         : "meteor",
-    "repo"          : "meteor"
+    "repo"          : "meteor",
+    "defaultLatitude": "56.666142",
+    "defaultLongitude":"16.356995"
 }

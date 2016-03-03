@@ -20,7 +20,6 @@ module.exports = {
             req.on('data', function(chunk) {
                 data += chunk;
                            
-
             });
             req.on('end', function() {
               
@@ -34,7 +33,6 @@ module.exports = {
             res.writeHead(405, "Method not supported", {'Content-Type': 'text/html'});
             res.end('<html><head><title>405 - Method not supported</title></head><body><h1>Method not supported.</h1></body></html>');
           }
-
           break;
 
         default:
