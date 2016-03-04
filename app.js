@@ -13,8 +13,8 @@ store.subscribe(
       const data = store.getState();
       const action = JSON.stringify({type: "BACKEND_DATA", data});
 
-      console.log(data);
-
+      // console.log(data);
+console.log(action);
       wss.broadcast(action);
     }
   }

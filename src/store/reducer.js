@@ -8,7 +8,9 @@ module.exports = (currentState, action) => {
             {},
             currentState, 
             {
-                commits: action.commits
+                matrix:{
+                    data:currentState.matrix.data.concat(action.commits)
+            }
             });
             
     case "ADD_POSTIONS":
