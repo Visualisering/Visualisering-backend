@@ -30,7 +30,6 @@ wss.on("connection", ws => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
       console.log("Received action from client:");
-      console.log(action);
       ws.send(action);
       // store.dispatch(action);
     } catch (e) {

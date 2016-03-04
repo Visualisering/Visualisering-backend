@@ -20,5 +20,8 @@
     "request": "^2.69.0",
     "ws": "^1.0.1",
     "fs": "0.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
   }
 }

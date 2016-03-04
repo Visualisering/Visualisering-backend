@@ -1,10 +1,25 @@
 "use strict";
-//const geoLocationApiAddress = 'http://nominatim.openstreetmap.org/search?format=json&city=';
 const cities = require("../../datasets/cities.json");
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config.json'));
 const request = require('request');
 
+
+module.exports = {
+    getPosition(city){
+        return new Promise.All(function (resolve, reject) {
+            checkCityExist(city).then((cityObject) =>{
+                if(cityObject === undefined){
+                    getGeoLocationFromApi(city);
+                }else{
+                    return cityObject;
+                }
+                }).then((position) =>{
+                    resolve(position);
+            });
+        });
+    }
+};
 
 function checkCityExist(city){
     return new Promise((resolve, reject) => {
@@ -32,18 +47,17 @@ function getGeoLocationFromApi(city){
             if(err){
                 reject(err.statusCode);
             }
-        
             let content = JSON.parse(res.body);
             content.forEach((searchResult) =>{
                 if(searchResult.type === 'city'){
                     saveCity({city:city, lat:searchResult.lat, lng:searchResult.lon})
-                            .then(() =>{
-                             resolve({lat:searchResult.lat, lng:searchResult.lon});
+                        .then(() =>{
+                         resolve({lat:searchResult.lat, lng:searchResult.lon});
                     });
                 }
             });
             //if city not found resolve
-            //default values
+            //default values from config file
             resolve({
                 lat:config.defaultLatitude, 
                 lng:config.defaultLongitude
@@ -52,21 +66,7 @@ function getGeoLocationFromApi(city){
     });
 }
 
-module.exports={
-    getPosition(city){
-        return new Promise(function (resolve, reject) {
-            checkCityExist(city).then((cityObject) =>{
-                if(cityObject === undefined){
-                    getGeoLocationFromApi(city)
-                        .then((position) =>{
-                        resolve(position);
-                    });
-                }
-            });
-         
-        });
-    }
-};
+
 
   
         

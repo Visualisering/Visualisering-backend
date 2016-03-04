@@ -12,7 +12,6 @@ module.exports = (currentState, action) => {
             });
             
     case "ADD_POSTIONS":
-     console.log(action.positions);
         return Object.assign(
             {},
             currentState,
