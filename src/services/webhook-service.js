@@ -1,6 +1,7 @@
 "use strict";
 const request = require("request");
 const sphere = require("../data-processors/sphere");
+const matrix = require("../data-processors/matrix");
 const store = require("../store/store.js");
 const actions = require("../store/actions");
 
@@ -14,6 +15,8 @@ module.exports = {
       store.dispatch(actions.addLatestPositions(positionArray));
      });
         
-    //plocka ut reponame, filename, repoowner, committers ==> matrix
+        matrix.process(payload).then((commitArray)=>{
+          store.dispatch(actions.addLatestCommits(commitArray));
+        });
   }
 };
