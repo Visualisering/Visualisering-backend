@@ -7,18 +7,14 @@ const sphere = require("./src/data-processors/sphere");
 const server = httpServer.init();
 const wss = new WebSocketServer({server});
 
-// Hookup datastore and processors
-sphere.dataSet()
-  .then(commits => store.dispatch(actions.addLatestCommits(commits)));
-
 store.subscribe(
   () => {
     if (store.getState()) {
       const data = store.getState();
       const action = JSON.stringify({type: "BACKEND_DATA", data});
 
-      console.log(data);
-
+      // console.log(data);
+console.log(action);
       wss.broadcast(action);
     }
   }
@@ -34,8 +30,8 @@ wss.on("connection", ws => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
       console.log("Received action from client:");
-      console.log(action);
-      store.dispatch(action);
+      ws.send(action);
+      // store.dispatch(action);
     } catch (e) {
       console.error(e.message);
       ws.send("Unable to parse JSON string.");
