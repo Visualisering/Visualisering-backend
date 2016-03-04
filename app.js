@@ -12,14 +12,9 @@ store.subscribe(
     if (store.getState()) {
       const data = store.getState();
       const action = JSON.stringify({type: "BACKEND_DATA", data});
-<<<<<<< HEAD
 
       console.log(data);
 
-=======
-      console.log('app.js' + action);
-      wss.send(action);
->>>>>>> remove a promise.all
       wss.broadcast(action);
     }
   }
