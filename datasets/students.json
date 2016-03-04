@@ -1,49 +1,30 @@
-[{
-    "city":"Kalmar",
-    "lat":"56.665954",
-    "lng":"16.356824",
-    "created":"2015-08-27T12:41:36.251Z",
-    "firstname":"Johan",
-    "lastname":"Leitet",
-    "program":"staff",
-    "services":{
-      "github":"Leitet"
-    },
-    "studentType":"campus",
-    "username":"rk222ev"
-  },
+[
   {
     "city":"Kalmar",
-    "lat":"56.665954",
-    "lng":"16.356824",
-    "created":"2015-08-27T12:47:56.042Z",
-    "firstname":"John",
-    "lastname":"Haggerud",
-    "program":"staff",
+    "created":"2015-08-27T12:41:36.251Z",
+    "firstname":"Sonny",
+    "lastname":"Kjellberg",
+    "program":"student",
     "services":{
-      "github":"thajo"
+      "github":"sk222sw"
     },
     "studentType":"campus",
     "username":"sk222sw"
   },
   {
-    "city":"Kalmar",
-    "lat":"56.665954",
-    "lng":"16.356824",
-    "created":"2015-08-27T13:33:33.607Z",
-    "firstname":"Mats",
-    "lastname":"Loock",
-    "program":"staff",
+    "city":"Uppsala",
+    "created":"2015-08-27T12:41:36.251Z",
+    "firstname":"Anna",
+    "lastname":"Iosif",
+    "program":"student",
     "services":{
-      "github":"mtslck"
+      "github":"Angamanga"
     },
     "studentType":"campus",
-    "username":"mw222rs"
+    "username":"ki222bj"
   },
     {
     "city":"Falsterbo",
-    "lat":"55.397107",
-    "lng":"12.841880",
     "created":"2015-08-27T13:33:33.607Z",
     "firstname":"Johanna",
     "lastname":"Szepanski",
@@ -53,5 +34,41 @@
     },
     "studentType":"distance",
     "username":"js223kz"
+  },
+    {
+    "city":"Borås",
+    "created":"2015-08-27T13:33:33.607Z",
+    "firstname":"Johanna",
+    "lastname":"Cornejo",
+    "program":"student",
+    "services":{
+      "github":"jc222fi"
+    },
+    "studentType":"distance",
+    "username":"jc222fi"
+  },
+    {
+    "city":"Umeå",
+    "created":"2015-08-27T13:33:33.607Z",
+    "firstname":"Mattias",
+    "lastname":"Wikström",
+    "program":"student",
+    "services":{
+      "github":"mw222rs"
+    },
+    "studentType":"distance",
+    "username":"mw222rs"
+  },
+    {
+    "city":"Växjö",
+    "created":"2015-08-27T13:33:33.607Z",
+    "firstname":"Robin",
+    "lastname":"Karlsson",
+    "program":"student",
+    "services":{
+      "github":"rk222ev"
+    },
+    "studentType":"distance",
+    "username":"rk222ev"
   }
 ]
