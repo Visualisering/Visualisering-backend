@@ -8,7 +8,7 @@ const server = httpServer.init();
 const wss = new WebSocketServer({server});
 
 // Hookup datastore and processors
-sphere.dataSet()
+commits.dataSet()
   .then(commits => store.dispatch(actions.addLatestCommits(commits)));
 
 store.subscribe(

@@ -1,5 +1,5 @@
-const githubService = require("../services/github-service");
-const studentService = require("../services/student-service");
+const githubService = require("../services/commit-service");
+const studentService = require("../services/committer-service");
 
 const process = commits => {
   return Promise.all(commits.map(commit => {
