@@ -19,15 +19,15 @@ module.exports = {
             let data = '';
             req.on('data', function(chunk) {
                 data += chunk;
-                           
+
             });
-            
+
             req.on('end', function() {
               webhookService.process(data);
               res.writeHead(200, "OK", {'Content-Type': 'text/html'});
               res.end();
             });
-          
+
           } else {
             console.log("[405] " + req.method + " to " + req.url);
             res.writeHead(405, "Method not supported", {'Content-Type': 'text/html'});

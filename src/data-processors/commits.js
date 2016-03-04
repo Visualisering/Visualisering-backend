@@ -1,21 +1,26 @@
-"use strict";
-const studentService = require("../services/student-service");
-const geoLocationService = require("../services/geolocation-service");
+const githubService = require("../services/commit-service");
+const studentService = require("../services/committer-service");
+
+const process = commits => {
+  return Promise.all(commits.map(commit => {
+    return new Promise((resolve, reject) => {
+      const username = commit.email.split("@")[0];
+      studentService.find_by_username(username)
+                    .then(student => resolve({lng: student.lng,
+                                              lat: student.lat,
+                                              time: Date.parse(commit.date)}));
+    });
+  }));
+};
 
 module.exports = {
-    process(commits) {
-        return Promise.all(commits.map(commit => {
-            return new Promise((resolve, reject) => {
-                studentService.find_by_username(commit.author.username)
-                    .then((student) =>{
-                        geoLocationService.getPosition(student.city)
-                            .then((position) => {
-                                resolve({   lng: position.lng,
-                                            lat: position.lat,
-                                            time: Date.parse(commit.timestamp)});
-                    });
-                });
-            });
-        }));
-    }
+
+  dataSet() {
+    return new Promise((resolve, reject) => {
+      githubService.latestCommits("Visualisering", "Visualisering-frontend")
+                  .then(process)
+                  .then(resolve);
+    });
+  }
+
 };
