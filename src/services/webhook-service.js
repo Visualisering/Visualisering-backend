@@ -12,12 +12,7 @@ module.exports = {
     let payload = JSON.parse(githubPush);
     sphere.process(payload.commits)
           .then((positionArray) => {
-            store.dispatch(actions.addLatestPositions(positionArray));
-          });
-
-    matrix.process(payload)
-          .then((commitArray) => {
-            store.dispatch(actions.addLatestCommits(commitArray));
+            store.dispatch(actions.addLatestCommits(positionArray));
           });
   }
 };

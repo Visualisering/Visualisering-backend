@@ -1,8 +1,3 @@
 module.exports = {
-  sphere: {
-    data: []
-  },
-  matrix:{
-    data:[]
-  }
+    commits: null
 };
