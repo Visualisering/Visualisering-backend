@@ -10,10 +10,9 @@ module.exports = {
   process(githubPush){
     let payload = JSON.parse(githubPush); 
         sphere.process(payload.commits)
-        .then(function(positionArray){
+        .then((positionArray) =>{
       store.dispatch(actions.addLatestPositions(positionArray));
      });
-        
         
     //plocka ut reponame, filename, repoowner, committers ==> matrix
   }

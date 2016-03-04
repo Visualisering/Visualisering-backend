@@ -5,21 +5,6 @@ const config = JSON.parse(fs.readFileSync('./config.json'));
 const request = require('request');
 
 
-module.exports = {
-    getPosition(city){
-        return new Promise.All(function (resolve, reject) {
-            checkCityExist(city).then((cityObject) =>{
-                if(cityObject === undefined){
-                    getGeoLocationFromApi(city);
-                }else{
-                    return cityObject;
-                }
-                }).then((position) =>{
-                    resolve(position);
-            });
-        });
-    }
-};
 
 function checkCityExist(city){
     return new Promise((resolve, reject) => {
@@ -66,6 +51,21 @@ function getGeoLocationFromApi(city){
     });
 }
 
+module.exports = {
+    getPosition(city){
+        return new Promise(function (resolve, reject) {
+            checkCityExist(city).then((cityObject) =>{
+                if(cityObject === undefined){
+                    getGeoLocationFromApi(city);
+                }else{
+                    return cityObject;
+                }
+                }).then((position) =>{
+                    resolve(position);
+            });
+        });
+    }
+};
 
 
   

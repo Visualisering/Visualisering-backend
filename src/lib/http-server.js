@@ -21,8 +21,8 @@ module.exports = {
                 data += chunk;
                            
             });
+            
             req.on('end', function() {
-              
               webhookService.process(data);
               res.writeHead(200, "OK", {'Content-Type': 'text/html'});
               res.end();
