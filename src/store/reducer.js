@@ -11,6 +11,16 @@ module.exports = (currentState, action) => {
         commits: action.commits
       });
 
+    case "ADD_POSTIONS":
+        return Object.assign(
+            {},
+            currentState,
+            {
+                sphere:{
+                    data: currentState.sphere.data.concat(action.positions)
+                }
+        });
+        
     default: return currentState;
     }
 

@@ -9,7 +9,7 @@ const wss = new WebSocketServer({server});
 
 // Hookup datastore and processors
 commits.dataSet()
-       .then(commits => store.dispatch(actions.addLatestCommits(commits)));
+       .then(positions => store.dispatch(actions.addLatestPositions(positions)));
 
 store.subscribe(
   () => {

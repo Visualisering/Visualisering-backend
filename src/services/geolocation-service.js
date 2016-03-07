@@ -4,8 +4,6 @@ const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config.json'));
 const request = require('request');
 
-
-
 function checkCityExist(city){
     return new Promise((resolve, reject) => {
         resolve(cities.find(c => c.city === city));
