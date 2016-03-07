@@ -8,13 +8,14 @@ const server = httpServer.init();
 const wss = new WebSocketServer({server});
 
 // Hookup datastore and processors
-commitData.initDataFetching();
+commitData.initDataFetching()
 
 store.subscribe(
   () => {
     if (store.getState()) {
       const data = store.getState();
       const action = JSON.stringify({type: "BACKEND_DATA", data});
+      console.log(action);
       wss.broadcast(action);
     }
   }

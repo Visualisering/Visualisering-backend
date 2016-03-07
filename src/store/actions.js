@@ -4,6 +4,7 @@ const store = require("./store");
 
 module.exports = {
   addLatestCommits(commits) {
+    console.log(commits);
     return {type: "ADD_COMMITS", commits};
   },
   addLatestPositions(positions){

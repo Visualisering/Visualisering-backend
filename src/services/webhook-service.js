@@ -1,6 +1,6 @@
 "use strict";
 const request = require("request");
-const sphere = require("../data-processors/sphere");
+const sphere = require("../data-processors/sphere-webhook");
 const matrix = require("../data-processors/matrix");
 const store = require("../store/store.js");
 const actions = require("../store/actions");
