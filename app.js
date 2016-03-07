@@ -2,14 +2,13 @@ const WebSocketServer = require("ws").Server;
 const httpServer = require("./src/lib/http-server");
 const actions = require("./src/store/actions");
 const store = require("./src/store/store");
-const commits = require("./src/data-processors/commits");
+const commitData = require("./src/services/github-service");
 
 const server = httpServer.init();
 const wss = new WebSocketServer({server});
 
 // Hookup datastore and processors
-commits.dataSet()
-       .then(positions => store.dispatch(actions.addLatestPositions(positions)));
+commitData.initDataFetching();
 
 store.subscribe(
   () => {

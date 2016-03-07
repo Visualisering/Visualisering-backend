@@ -14,7 +14,6 @@ const process = commits => {
 };
 
 module.exports = {
-
   dataSet() {
     return new Promise((resolve, reject) => {
       githubService.latestCommits("Visualisering", "Visualisering-frontend")
