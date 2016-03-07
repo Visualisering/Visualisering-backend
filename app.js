@@ -5,6 +5,13 @@ const actions = require("./src/store/actions");
 const store = require("./src/store/store");
 const commitData = require("./src/services/github-service");
 
+//Godmorgon brudar! Nu har jag fixat sa att data gar fran get-request till websocketen via redux. Nagra saker ar kvar att fixa:
+//1. det ar inte sakert att github-service.js behovs. Den skulle kunna plockas bort.
+//2. Vi behover pa nagot vis begransa hur manga commits som dispatchas. Jag tror att vi skulle kunna gora det i sphere-getrequest.js rad 48.
+//3. Vi behover en schedule som hamtar data en gang per dygn eller vad som nu behovs. Tror det kan goras har i app.js rad 17?
+//4. Allmant städ. Det har med att skriva kod snyggt har jag inte riktigt lart mig...
+//5. Lagga in Falsterbo manuellt i cities.json
+
 const server = httpServer.init();
 const wss = new WebSocketServer({server});
 

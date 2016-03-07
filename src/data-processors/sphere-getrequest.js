@@ -9,29 +9,49 @@ const store = require("../store/store.js");
 const actions = require("../store/actions");
 
 module.exports = {
-    process(){
-        let positionArray = [];
-        
-        repoArray.map(owner=>{
-                this.latestCommits(owner.username,owner.repos)
-                .then((commitInfo)=>{
-                    Promise.all(commitInfo.map((item)=>{
-                        return new Promise((resolve, reject)=>{
-                            studentService.find_by_username(item.committer.login)
-                         .then((student) =>{
-                        geoLocationService.getPosition(student.city).then((position)=>{
-                          resolve({lng: position.lng,
-                                                lat: position.lat,
-                                                time: Date.parse(item.commit.author.date)});
-                        })
-                    })
-                    })
-            })).then((positionArray)=>{
-        store.dispatch(actions.addLatestCommits(positionArray));
-
-            });           
-        });
-        });
+        process() {
+                //Welcome to the big Promise-party!
+                //forsta promise.all gar igenom repoArrayen
+                Promise.all(repoArray.map(owner => {
+                    return new Promise((resolve, reject) => {
+                        this.latestCommits(owner.username, owner.repos)
+                            .then((commitInfo) => {
+                                //andra promise.all gar igenom commitsArrayen vi far fran github
+                                Promise.all(commitInfo.map((item) => {
+                                    return new Promise((resolve, reject) => {
+                                        studentService.find_by_username(item.committer.login)
+                                            .then((student) => {
+                                                geoLocationService.getPosition(student.city).then((position) => {
+                                                    resolve({
+                                                        lng: position.lng,
+                                                        lat: position.lat,
+                                                        time: Date.parse(item.commit.author.date)
+                                                    });
+                                                })
+                                            })
+                                    })
+                                })).then((positions) => {
+                                    //har skickar vi vidare alla positioner nar Promise.all pa rad 18 ar uppfyllt
+                                    resolve(positions);
+                                })
+                            });
+                    });
+                })).then((positionArrays) => {
+                    //commitsen fran varje repo kommer som en array i en storre array, i rad 40-45 plockar vi ur objecten och lagger dom i 
+                    //en gemensam array
+                    let positionArray = [];
+                    positionArrays.map(positions => {
+                        positions.map(positionObject => {
+                            positionArray.push(positionObject);
+                        });
+                    });
+                    //har borde man kunna sortera och begransa objekten i positionArray till 100 innan dom dispatchas
+                    store.dispatch(actions.addLatestCommits(positionArray));
+                });
+        },
+       //ta bort koden nedan nar allt funkar, jag vagade inte ta bort den innan...
+       
+       
         //har en idé om hur vi ska lösa denna bättre
         //för varje student i repoarray så sätter
         //vi lat och long
@@ -64,25 +84,26 @@ module.exports = {
         //     });//second promise
         
         // })); //first promise
-    },
+   
 
-
-    latestCommits(owner, repo){
-        return new Promise((resolve, reject) =>{
-          request({
-              url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
-              method: 'GET', 
-              headers: {
-                  "User-Agent": "rk222ev@student.lnu.se"
-              }
-          }, function(error, response, body){
-              if(error) {
-                  reject(error);
-              } else {
-                  //console.log(body); den här loggar body
-                  resolve(JSON.parse(body));//verkar inte skicka det här tillbaka till 
-              }
-          });
+latestCommits(owner, repo) {
+    return new Promise((resolve, reject) => {
+        request({
+            url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
+            method: 'GET',
+            headers: {
+                "User-Agent": "rk222ev@student.lnu.se"
+            }
+        }, function(error, response, body) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            }
+            else {
+                //   console.log(body); //den här loggar body
+                resolve(JSON.parse(body)); //verkar inte skicka det här tillbaka till 
+            }
         });
-    },
+    });
+},
 };

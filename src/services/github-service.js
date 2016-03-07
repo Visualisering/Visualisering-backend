@@ -11,10 +11,6 @@ const actions = require("../store/actions");
 module.exports  = {
   initDataFetching(){
  sphere.process();
-    
-    // .then((positionArray)=>{
-    //     store.dispatch(actions.addLatestCommits(positionArray));
-    //});
   }
 };
   

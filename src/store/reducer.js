@@ -4,12 +4,11 @@ const _ = require("lodash");
 module.exports = (currentState, action) => {
   switch (action.type) {
   case "ADD_COMMITS":
-  console.log('reducer');
     return Object.assign(
       {},
       currentState,
       {
-        commits: action.commits
+        commits: currentState.commits.concat(action.commits)
       });
 
     case "ADD_POSTIONS":
