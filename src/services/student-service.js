@@ -1,14 +1,14 @@
-const students = require("../../datasets/students");
+const studentFile = require("../../datasets/students.json");
+const fs = require('fs');
 
 module.exports = {
-  students() {
-    return new Promise((resolve, reject) => {
-      resolve(students);
-    });
-  },
   find_by_username(username) {
     return new Promise((resolve, reject) => {
-      resolve(students.find(o => o.username === username));
+      studentFile.forEach((student)=>{
+        if(student.services.github === username){
+          resolve(student);
+        }
+      });
     });
   }
 };
