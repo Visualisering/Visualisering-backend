@@ -1,6 +1,6 @@
 "use strict";
-const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./config.json'));
+const fs = require('fs'),
+        config = JSON.parse(fs.readFileSync('./config.json'));
 
 module.exports = {
     process(payload){
@@ -13,7 +13,7 @@ module.exports = {
                         message: commit.message,
                         committer: commit.committer.username,
                         filename: commit.modified[0],
-                        code: config.defaultCode
+                        code: config.defaultCode //här skulle behövas hämtas en riktigt kod
                     });
             });
         }));

@@ -14,12 +14,13 @@
   "dependencies": {
     "eslint": "^2.2.0",
     "eslint-config-google": "^0.4.0",
+    "fs": "0.0.2",
     "lodash": "^4.6.1",
+    "node-schedule": "^1.0.0",
     "redux": "^3.3.1",
     "redux-thunk": "^1.0.3",
     "request": "^2.69.0",
-    "ws": "^1.0.1",
-    "fs": "0.0.2"
+    "ws": "^1.0.1"
   },
   "devDependencies": {
     "mocha": "^2.4.5"

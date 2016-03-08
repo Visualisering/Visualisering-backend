@@ -1,29 +1,34 @@
 "use strict";
-const WebSocketServer = require("ws").Server;
-const httpServer = require("./src/lib/http-server");
-const actions = require("./src/store/actions");
-const store = require("./src/store/store");
-const commitData = require("./src/services/github-service");
+const WebSocketServer = require("ws").Server,
+      httpServer = require("./src/lib/http-server"),
+      store = require("./src/store/store"),
+      commitData = require("./src/data-processors/sphere-getrequest"),
+      schedule = require('node-schedule');
 
-//Godmorgon brudar! Nu har jag fixat sa att data gar fran get-request till websocketen via redux. Nagra saker ar kvar att fixa:
-//1. det ar inte sakert att github-service.js behovs. Den skulle kunna plockas bort.
-//2. Vi behover pa nagot vis begransa hur manga commits som dispatchas. Jag tror att vi skulle kunna gora det i sphere-getrequest.js rad 48.
-//3. Vi behover en schedule som hamtar data en gang per dygn eller vad som nu behovs. Tror det kan goras har i app.js rad 17?
-//4. Allmant städ. Det har med att skriva kod snyggt har jag inte riktigt lart mig...
-//5. Lagga in Falsterbo manuellt i cities.json
 
 const server = httpServer.init();
 const wss = new WebSocketServer({server});
 
-// Hookup datastore and processors
-commitData.initDataFetching()
+//Start-up data
+//==============================================================================
+//Get startup-data for sphere and matrix module
+commitData.process();
+let checkDate = new Date();
+
+//Update commits from github repos defined in datasets/repos.json
+//every day 23.00 every day
+schedule.scheduleJob('/00 00 22 * * 1-7', function(){
+  console.log("schedule at 23 every day" + checkDate.getDate());
+  commitData.process();
+});
+//==============================================================================
 
 store.subscribe(
   () => {
     if (store.getState()) {
       const data = store.getState();
+      console.log(data);
       const action = JSON.stringify({type: "BACKEND_DATA", data});
-      console.log(action);
       wss.broadcast(action);
     }
   }
@@ -32,8 +37,7 @@ store.subscribe(
 wss.broadcast = data => wss.clients.forEach(client => client.send(data));
 
 wss.on("connection", ws => {
-  const data = store.getState();
-  const action = JSON.stringify({type: "BACKEND_DATA", data});
+  const action = JSON.stringify({type: "WS_CONNECTED"});
   ws.send(action);
 
   ws.on("message", message => {
@@ -41,7 +45,6 @@ wss.on("connection", ws => {
       const action = JSON.parse(message);
       console.log("Received action from client:");
       console.log(action);
-      
       store.dispatch(action);
     } catch (e) {
       console.error(e.message);

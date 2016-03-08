@@ -1,8 +1,8 @@
 "use strict";
-const cities = require("../../datasets/cities.json");
-const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./config.json'));
-const request = require('request');
+const cities = require("../../datasets/cities.json"),
+      fs = require('fs'),
+      config = JSON.parse(fs.readFileSync('./config.json')),
+      request = require('request');
 
 function checkCityExist(city){
     return new Promise((resolve, reject) => {
