@@ -12,6 +12,14 @@ module.exports = (currentState, action) => {
                 positions:action.positions
         });
         
+        case "ADD_COMMITS":
+        return Object.assign(
+            {},
+            currentState,
+            {
+                commits:action.commits
+        });
+        
     default: return currentState;
     }
 
