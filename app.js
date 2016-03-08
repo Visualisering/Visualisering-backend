@@ -1,20 +1,31 @@
-const WebSocketServer = require("ws").Server;
-const httpServer = require("./src/lib/http-server");
-const actions = require("./src/store/actions");
-const store = require("./src/store/store");
-const commits = require("./src/data-processors/commits");
+"use strict";
+const WebSocketServer = require("ws").Server,
+      httpServer = require("./src/lib/http-server"),
+      store = require("./src/store/store"),
+      commitData = require("./src/data-processors/sphere-getrequest"),
+      schedule = require('node-schedule'),
+      server = httpServer.init(),
+      wss = new WebSocketServer({server});
 
-const server = httpServer.init();
-const wss = new WebSocketServer({server});
+//Start-up data
+//==============================================================================
+//Get startup-data for sphere and matrix module
+commitData.process();
+let checkDate = new Date();
 
-// Hookup datastore and processors
-commits.dataSet()
-       .then(commits => store.dispatch(actions.addLatestCommits(commits)));
+//Update commits from github-repos defined in datasets/repos.json
+//23.00 every day
+schedule.scheduleJob('/00 00 22 * * 1-7', function(){
+  console.log("schedule at 23 every day" + checkDate.getDate());
+  commitData.process();
+});
+//==============================================================================
 
 store.subscribe(
   () => {
     if (store.getState()) {
       const data = store.getState();
+      console.log(data);
       const action = JSON.stringify({type: "BACKEND_DATA", data});
       wss.broadcast(action);
     }

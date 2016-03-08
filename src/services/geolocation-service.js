@@ -1,10 +1,8 @@
 "use strict";
-const cities = require("../../datasets/cities.json");
-const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./config.json'));
-const request = require('request');
-
-
+const cities = require("../../datasets/cities.json"),
+      fs = require('fs'),
+      config = JSON.parse(fs.readFileSync('./config.json')),
+      request = require('request');
 
 function checkCityExist(city){
     return new Promise((resolve, reject) => {
@@ -33,7 +31,7 @@ function getGeoLocationFromApi(city){
                 reject(err.statusCode);
             }
             let content = JSON.parse(res.body);
-            content.forEach((searchResult) =>{
+        content.forEach((searchResult) =>{
                 if(searchResult.type === 'city'){
                     saveCity({city:city, lat:searchResult.lat, lng:searchResult.lon})
                         .then(() =>{
@@ -41,7 +39,8 @@ function getGeoLocationFromApi(city){
                     });
                 }
             });
-            //if city not found resolve
+        
+        //if city not found resolve
             //default values from config file
             resolve({
                 lat:config.defaultLatitude, 
@@ -56,7 +55,7 @@ module.exports = {
         return new Promise(function (resolve, reject) {
             checkCityExist(city).then((cityObject) =>{
                 if(cityObject === undefined){
-                    getGeoLocationFromApi(city);
+                    return getGeoLocationFromApi(city);
                 }else{
                     return cityObject;
                 }

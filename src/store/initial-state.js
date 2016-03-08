@@ -1,3 +1,4 @@
 module.exports = {
-    commits: null
+    positions: [],
+    commits:[]
 };
