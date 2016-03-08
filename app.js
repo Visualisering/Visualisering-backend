@@ -3,11 +3,9 @@ const WebSocketServer = require("ws").Server,
       httpServer = require("./src/lib/http-server"),
       store = require("./src/store/store"),
       commitData = require("./src/data-processors/sphere-getrequest"),
-      schedule = require('node-schedule');
-
-
-const server = httpServer.init();
-const wss = new WebSocketServer({server});
+      schedule = require('node-schedule'),
+      server = httpServer.init(),
+      wss = new WebSocketServer({server});
 
 //Start-up data
 //==============================================================================
@@ -15,8 +13,8 @@ const wss = new WebSocketServer({server});
 commitData.process();
 let checkDate = new Date();
 
-//Update commits from github repos defined in datasets/repos.json
-//every day 23.00 every day
+//Update commits from github-repos defined in datasets/repos.json
+//23.00 every day
 schedule.scheduleJob('/00 00 22 * * 1-7', function(){
   console.log("schedule at 23 every day" + checkDate.getDate());
   commitData.process();
