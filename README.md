@@ -18,7 +18,9 @@ Method asks github for commits made to repos defined in datasets/repos.json
 This initialization only occurs once and dispatches startup-data to
 both sphere and matrix module.
 
-**Github webhook**
+** Startup-data **
+
+** Github webhook **
 Add a webhook to any organisation. Webhook should receive a post
 from github when a push is made to any repo in the organization.
 Endpoint should be: [your url to application]/commit
