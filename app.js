@@ -5,8 +5,7 @@
 const WebSocketServer = require("ws").Server,
       httpServer = require("./src/lib/http-server"),
       store = require("./src/store/store"),
-      positionsData = require("./src/data-processors/sphere-getrequest"),
-      commitData = require("./src/data-processors/matrix-getrequest"),
+      githubRequestService = require("./src/services/githubrequest-service"),
       schedule = require('node-schedule'),
       server = httpServer.init(),
       wss = new WebSocketServer({server});
@@ -15,8 +14,7 @@ const WebSocketServer = require("ws").Server,
 // Start-up data ===============================================================
 
 // Get startup-data for sphere and matrix module 
-commitData.process();
-positionsData.process();
+githubRequestService.process();
 
 let checkDate = new Date();
 
@@ -24,8 +22,7 @@ let checkDate = new Date();
 // 23.00 every day
 schedule.scheduleJob('/00 00 22 * * 1-7', function(){
   console.log("schedule at 23 every day" + checkDate.getDate());
-  commitData.process();
-  positionsData.process();
+  githubRequestService.process();
 });
 
 // Redux statetree =============================================================
