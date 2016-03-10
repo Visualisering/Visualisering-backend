@@ -5,8 +5,7 @@
 const WebSocketServer = require("ws").Server,
       httpServer = require("./src/lib/http-server"),
       store = require("./src/store/store"),
-      positionsData = require("./src/data-processors/sphere-getrequest"),
-      commitData = require("./src/data-processors/matrix-getrequest"),
+      githubRequestService = require("./src/services/githubrequest-service"),
       schedule = require('node-schedule'),
       server = httpServer.init(),
       wss = new WebSocketServer({server});
@@ -15,8 +14,7 @@ const WebSocketServer = require("ws").Server,
 // Start-up data ===============================================================
 
 // Get startup-data for sphere and matrix module 
-commitData.process();
-positionsData.process();
+githubRequestService.process();
 
 let checkDate = new Date();
 
@@ -24,16 +22,15 @@ let checkDate = new Date();
 // 23.00 every day
 schedule.scheduleJob('/00 00 22 * * 1-7', function(){
   console.log("schedule at 23 every day" + checkDate.getDate());
-  commitData.process();
-  positionsData.process();
+  githubRequestService.process();
 });
 
 // Redux statetree =============================================================
 
 store.subscribe(
   () => {
-    if (store.getState()) {
-      const data = store.getState();
+    const data = store.getState();
+    if (data) {
       const action = JSON.stringify({type: "BACKEND_DATA", data});
       console.log(action);
       wss.broadcast(action);
@@ -52,7 +49,7 @@ wss.on("connection", ws => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
       console.log("Received action from client:");
-      console.log(action);
+    //  console.log(action);
       store.dispatch(action);
     } catch (e) {
       console.error(e.message);
