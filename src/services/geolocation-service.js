@@ -31,14 +31,14 @@ function getGeoLocationFromApi(city){
                 reject(err.statusCode);
             }
             let content = JSON.parse(res.body);
-        content.forEach((searchResult) =>{
+            content.forEach((searchResult) =>{
                 if(searchResult.type === 'city'){
                     saveCity({city:city, lat:searchResult.lat, lng:searchResult.lon})
                         .then(() =>{
                          resolve({
                                 lat:searchResult.lat, 
-                                lng:searchResult.lon}
-                                );
+                                lng:searchResult.lon
+                            });
                     });
                 }
             });
@@ -54,7 +54,6 @@ function getGeoLocationFromApi(city){
 
 module.exports = {
     getPosition(city){
-        console.log(city);
         return new Promise(function (resolve, reject) {
             checkCityExist(city).then((cityObject) =>{
                 if(cityObject === undefined){

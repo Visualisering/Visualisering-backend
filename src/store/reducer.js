@@ -2,15 +2,9 @@
 const _ = require("lodash");
 
 module.exports = (currentState, action) => {
-          console.log('reducer');
   switch (action.type) {
-    // triggar detta caset?  NI kan logga inne för vara säkra, e det denna ni vill köra? jag har inte så mkt koll
     case "ADD_POSITIONS":
-    let newState = currentState.positions.concat(action.positions);
-    let positionsToSendToReducer = _.orderBy(newState, ['time'], ['desc']).splice(-100);
-  
-    console.log('langd'+currentState.positions.length);
-    
+    let positionsToSendToReducer = _.orderBy(currentState.positions.concat(action.positions), ['time'], ['desc']).splice(-100);
         return Object.assign(
             {},
             currentState,
@@ -19,11 +13,12 @@ module.exports = (currentState, action) => {
         });
         
         case "ADD_COMMITS":
+        let commitsToSendToReducer = _.orderBy(currentState.commits.concat(action.commits), ['timestamp'], ['desc']).splice(-100);
         return Object.assign(
             {},
             currentState,
             {
-                commits:action.commits
+                commits:commitsToSendToReducer
         });
         
     default: return currentState;

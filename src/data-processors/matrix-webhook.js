@@ -6,7 +6,7 @@ const   fs = require('fs'),
         _ = require("lodash");
 
 module.exports = {
-    process(commitInfo){
+    process(commitInfo, owner){
         return Promise.all(commitInfo.commits.map(commit=>{
             return new Promise((resolve, reject)=>{
                 resolve({
