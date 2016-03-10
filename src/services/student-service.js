@@ -1,5 +1,6 @@
 const studentFile = require("../../datasets/students.json");
-const fs = require('fs');
+const fs = require('fs'),
+config = JSON.parse(fs.readFileSync('./config.json'));
 
 module.exports = {
   
@@ -9,7 +10,8 @@ module.exports = {
         if(student.services.github === username){
           resolve(student);
         }else{
-          //default värde om studenten inte finns
+          //if student can't be found set default city from config
+          resolve({city:config.defaultCity});
         }
       });
     });

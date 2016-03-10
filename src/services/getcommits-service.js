@@ -15,7 +15,8 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "rk222ev@student.lnu.se"
+                    "User-Agent": "rk222ev@student.lnu.se",
+                    "Authorization": "token 9af1e0896036608e8d992e6d54faf4d0f6e4e653"
                 }
             }, function(error, response, body) {
                 if (error) {

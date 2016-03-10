@@ -29,8 +29,8 @@ schedule.scheduleJob('/00 00 22 * * 1-7', function(){
 
 store.subscribe(
   () => {
-    if (store.getState()) {
-      const data = store.getState();
+    const data = store.getState();
+    if (data) {
       const action = JSON.stringify({type: "BACKEND_DATA", data});
       console.log(action);
       wss.broadcast(action);

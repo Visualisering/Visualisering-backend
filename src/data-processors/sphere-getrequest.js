@@ -36,13 +36,8 @@ module.exports = {
                     });
                 });
         })).then((positionArrays) => {
-            this.dispatchToSphere(positionArrays);
-        });
-    },
+        store.dispatch(actions.addLatestPositions(positionArrays));
 
-    //dispatch commit positions to statetree
-    dispatchToSphere(positions) {
-        let positionsToDispatch = _.orderBy(positions, ['time'], ['desc']).splice(-100);
-        store.dispatch(actions.addLatestPositions(positionsToDispatch));
+        });
     }
 };

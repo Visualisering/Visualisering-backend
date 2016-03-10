@@ -2,7 +2,7 @@
 
 const   getCommitsService = require("../services/getcommits-service"),
         sphereProcessor = require("../data-processors/sphere-getrequest"),
-        matrixProcessor = require("../data-processors/matrix-getrequest"),
+        matrixProcessor = require("../data-processors/matrix-webhook"),
         fs = require('fs'),
         config = JSON.parse(fs.readFileSync('./config.json')),
         repoArray = require(config.repoArray);
@@ -16,16 +16,12 @@ and dispatched.
 ==============================================================================*/
 module.exports = {
     process() {
-        Promise.all(repoArray.map(owner => {
-        return new Promise((resolve, reject) => {
+        repoArray.map(owner => {
             getCommitsService.latestCommits(owner.username, owner.repos)
-                .then((commitInfo) => {
-                    sphereProcessor.process(commitInfo)
-                        .then(() =>{
-                        });
-                    //matrixProcessor.process(commitInfo);
-                }).then(resolve());
+            .then((commitInfo) => {
+                sphereProcessor.process(commitInfo);
+                //matrixProcessor.process(commitInfo);
             });
-        }));
-    },
+        });  
+    }
 }; 

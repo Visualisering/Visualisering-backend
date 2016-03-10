@@ -35,12 +35,14 @@ function getGeoLocationFromApi(city){
                 if(searchResult.type === 'city'){
                     saveCity({city:city, lat:searchResult.lat, lng:searchResult.lon})
                         .then(() =>{
-                         resolve({lat:searchResult.lat, lng:searchResult.lon});
+                         resolve({
+                                lat:searchResult.lat, 
+                                lng:searchResult.lon}
+                                );
                     });
                 }
             });
-        
-        //if city not found resolve
+            //if city not found resolve
             //default values from config file
             resolve({
                 lat:config.defaultLatitude, 
@@ -52,15 +54,15 @@ function getGeoLocationFromApi(city){
 
 module.exports = {
     getPosition(city){
+        console.log(city);
         return new Promise(function (resolve, reject) {
             checkCityExist(city).then((cityObject) =>{
                 if(cityObject === undefined){
-                    return getGeoLocationFromApi(city);
+                    resolve(getGeoLocationFromApi(city));
                 }else{
-                    return cityObject;
+                    resolve(cityObject);
                 }
-                }).then((position) =>{
-                    resolve(position);
+               
             });
         });
     }

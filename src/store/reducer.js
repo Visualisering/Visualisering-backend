@@ -2,14 +2,20 @@
 const _ = require("lodash");
 
 module.exports = (currentState, action) => {
+          console.log('reducer');
   switch (action.type) {
-
-    case "ADD_POSTIONS":
+    // triggar detta caset?  NI kan logga inne för vara säkra, e det denna ni vill köra? jag har inte så mkt koll
+    case "ADD_POSITIONS":
+    let newState = currentState.positions.concat(action.positions);
+    let positionsToSendToReducer = _.orderBy(newState, ['time'], ['desc']).splice(-100);
+  
+    console.log('langd'+currentState.positions.length);
+    
         return Object.assign(
             {},
             currentState,
             {
-                positions:action.positions
+                positions:positionsToSendToReducer
         });
         
         case "ADD_COMMITS":
