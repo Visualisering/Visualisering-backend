@@ -3,6 +3,7 @@
 const   getCommitsService = require("../services/getcommits-service"),
         sphereProcessor = require("../data-processors/sphere-getrequest"),
         matrixProcessor = require("../data-processors/matrix-getrequest"),
+        settings = require('../../settings'), 
         fs = require('fs'),
         config = JSON.parse(fs.readFileSync('./config.json')),
         repoArray = require(config.repoArray);
@@ -16,11 +17,15 @@ and dispatched.
 ==============================================================================*/
 module.exports = {
     process() {
+        //console.log(settings.geoentry);
         repoArray.map(owner => {
             getCommitsService.latestCommits(owner.username, owner.repos)
             .then((commitInfo) => {
-                matrixProcessor.process(commitInfo, owner);
                 sphereProcessor.process(commitInfo);
+                getCommitsService.getCommitInfo(owner.username, owner.repos, commitInfo[0].sha)
+                .then((specificCommit) => {
+                    matrixProcessor.process(commitInfo, owner, specificCommit.files);
+                });
             });
         });  
     }

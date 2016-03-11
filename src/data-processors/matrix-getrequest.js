@@ -1,6 +1,7 @@
 "use strict";
 const geoLocationService = require("../services/geolocation-service"),
     studentService = require("../services/student-service"),
+    codeService = require("../services/code-service"),
     fs = require('fs'),
     config = JSON.parse(fs.readFileSync('./config.json')),
     repoArray = require(config.repoArray),
@@ -8,8 +9,14 @@ const geoLocationService = require("../services/geolocation-service"),
     actions = require("../store/actions"),
     request = require("request");
 module.exports = {
-    process(commitInfo, owner) {
-            Promise.all(commitInfo.map((item) => {
+    process(commitInfo, owner, commitFiles) {
+        Promise.all(commitInfo.map((item) => {
+            let code = "";
+            let fileName = "";
+            Promise.all(commitFiles.map((file) => {
+                code += file.patch;
+                fileName = file.filename;
+            })).then(() => {
                 return new Promise((resolve, reject) => {
                     resolve({
                         repo: owner.repos,
@@ -17,12 +24,13 @@ module.exports = {
                         timestamp: item.commit.committer.date,
                         message: item.commit.message,
                         committer: item.committer.login,
-                        filename: "fil.js", //default filnamn
-                        code: config.defaultCode //default kod
+                        filename: fileName,
+                        code: new Buffer(code).toString('base64')
                     });
+                }).then((commitsWithCode) => {
+                    store.dispatch(actions.addLatestCommits(commitsWithCode));
                 });
-            })).then((commitArrays) => {
-                store.dispatch(actions.addLatestCommits(commitArrays));
             });
-        }
+        }));
+    }
 };
