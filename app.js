@@ -26,7 +26,6 @@ schedule.scheduleJob('/00 00 22 * * 1-7', function(){
 });
 
 // Redux statetree =============================================================
-
 store.subscribe(
   () => {
     const data = store.getState();
@@ -49,7 +48,7 @@ wss.on("connection", ws => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
       console.log("Received action from client:");
-    //  console.log(action);
+     console.log(action);
       store.dispatch(action);
     } catch (e) {
       console.error(e.message);

@@ -2,7 +2,7 @@
     "geolocation" : "openstreetmap",
     "geoentry" : "http://nominatim.openstreetmap.org/search?format=json&city=",
     "github" : " https://api.github.com/repos/",
-    "numberOfCommits" : "?page=1&per_page=20",
+    "numberOfCommits" : "?page=1&per_page=2",
     "owner"         : "meteor",
     "repo"          : "meteor",
     "defaultCity"   :"Kalmar",

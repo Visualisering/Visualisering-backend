@@ -1,7 +1,7 @@
 "use strict";
 const request = require("request");
-const sphere = require("../data-processors/sphere");
-const matrix = require("../data-processors/matrix");
+const sphere = require("../data-processors/sphere-webhook");
+const matrix = require("../data-processors/matrix-webhook");
 const store = require("../store/store.js");
 const actions = require("../store/actions");
 
@@ -10,9 +10,7 @@ const actions = require("../store/actions");
 module.exports = {
   process(githubPush){
     let payload = JSON.parse(githubPush);
-    sphere.process(payload.commits)
-          .then((positionArray) => {
-            store.dispatch(actions.addLatestCommits(positionArray));
-          });
+    sphere.process(payload.commits);
+    matrix.process(payload.commits);
   }
 };

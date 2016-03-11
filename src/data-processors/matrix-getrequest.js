@@ -1,7 +1,6 @@
 "use strict";
 const geoLocationService = require("../services/geolocation-service"),
     studentService = require("../services/student-service"),
-    codeService = require("../services/code-service"),
     fs = require('fs'),
     config = JSON.parse(fs.readFileSync('./config.json')),
     repoArray = require(config.repoArray),
