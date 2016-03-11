@@ -6,7 +6,6 @@ const   studentService = require("../services/student-service"),
 
 module.exports = {
     process(commits) {
-        console.log(commits);
         return Promise.all(commits.map(commit => {
             return new Promise((resolve, reject) => {
                 studentService.find_by_username(commit.author.username)

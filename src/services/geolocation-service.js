@@ -54,7 +54,6 @@ function getGeoLocationFromApi(city){
         });
     }
 
-
 module.exports = {
     getPosition(city){
         return new Promise(function (resolve, reject) {
