@@ -1,21 +1,31 @@
 "use strict";
 const   studentService = require("../services/student-service"),
-        geoLocationService = require("../services/geolocation-service");
+        geoLocationService = require("../services/geolocation-service"),
+        store = require("../store/store.js"),
+        actions = require("../store/actions");
 
 module.exports = {
     process(commits) {
         return Promise.all(commits.map(commit => {
             return new Promise((resolve, reject) => {
                 studentService.find_by_username(commit.author.username)
-                    .then((student) =>{
+                    .then((student) => {
                         geoLocationService.getPosition(student.city)
                             .then((position) => {
-                                resolve({   lng: position.lng,
-                                            lat: position.lat,
-                                            time: Date.parse(commit.timestamp)});
+
+                                resolve({
+                                    lng: position.lng,
+                                    lat: position.lat,
+                                    time: Date.parse(commit.timestamp)
+
+                                });
+                            });
                     });
-                }); //we have to add dispatch here
-            });
-        }));
+
+                //we have to add dispatch here
+            })
+        })).then((positions) => {
+            store.dispatch(actions.addLatestWebhookPositions(positions));
+        });
     }
 };

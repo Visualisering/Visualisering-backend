@@ -21,6 +21,16 @@ module.exports = (currentState, action) => {
                 commits:commitsToSendToReducer
         });
         
+        case "ADD_WH_POSITIONS":
+            console.log('wh');
+                console.log(action.wh_positions);
+            return Object.assign(
+                 {},
+                 currentState,
+                 {
+                     wh_positions:action.wh_positions
+             });
+            
     default: return currentState;
     }
 

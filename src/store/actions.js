@@ -6,7 +6,10 @@ module.exports = {
   return {type:"ADD_COMMITS", commits};
   },
   addLatestPositions(positions){
-    console.log('action');
      return {type:"ADD_POSITIONS", positions};
+  },
+  addLatestWebhookPositions(wh_positions){
+    console.log('action creator');
+     return {type:"ADD_WH_POSITIONS", wh_positions};
   }
 };
