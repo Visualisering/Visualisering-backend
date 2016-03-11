@@ -54,7 +54,8 @@ module.exports = {
                 url: config.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""                }
+                "User-Agent": ""
+                }
             }, function(error, response, body){
                 if(error){
                     console.log(error);

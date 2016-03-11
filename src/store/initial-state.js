@@ -1,5 +1,6 @@
 module.exports = {
     positions: [],
     commits:[],
-    wh_positions:[] 
+    wh_commits:[],
+    wh_positions:[]
 };

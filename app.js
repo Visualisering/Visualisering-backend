@@ -31,7 +31,7 @@ store.subscribe(
     const data = store.getState();
     if (data) {
       const action = JSON.stringify({type: "BACKEND_DATA", data});
-      console.log(action);
+    //console.log(action);
       wss.broadcast(action);
     }
   }

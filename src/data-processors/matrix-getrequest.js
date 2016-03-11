@@ -7,6 +7,7 @@ const geoLocationService = require("../services/geolocation-service"),
     store = require("../store/store.js"),
     actions = require("../store/actions"),
     request = require("request");
+    
 module.exports = {
     process(commitInfo, owner, commitFiles) {
         Promise.all(commitInfo.map((item) => {
