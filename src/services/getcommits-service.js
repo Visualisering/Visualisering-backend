@@ -15,12 +15,7 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
                 method: 'GET',
                 headers: {
-<<<<<<< HEAD
                     "User-Agent": ""
-=======
-                    "User-Agent": "",
-                    "Authorization": "token 4d8db6bafe22e480bcebc095bcc8b12e9cf23e21"
->>>>>>> 8806fe452d047148704f361ea9d7a580cd803f0f
                 }
             }, function(error, response, body) {
                 if (error) {
@@ -40,12 +35,7 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-<<<<<<< HEAD
                 "User-Agent": ""
-=======
-                "User-Agent": "",
-                "Authorization": "token 4d8db6bafe22e480bcebc095bcc8b12e9cf23e21"
->>>>>>> 8806fe452d047148704f361ea9d7a580cd803f0f
                 }
             }, function(error, response, body){
                 if(error){
@@ -64,12 +54,7 @@ module.exports = {
                 url: config.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-<<<<<<< HEAD
                 "User-Agent": ""
-=======
-                "User-Agent": "",
-                "Authorization": "token 4d8db6bafe22e480bcebc095bcc8b12e9cf23e21"
->>>>>>> 8806fe452d047148704f361ea9d7a580cd803f0f
                 }
             }, function(error, response, body){
                 if(error){
@@ -81,6 +66,5 @@ module.exports = {
                 }
             });
         });
-        
     }
 };
