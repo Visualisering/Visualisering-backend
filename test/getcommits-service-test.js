@@ -17,7 +17,7 @@ describe('getcommits-service', () =>{
                 response.map((commit) =>{
                     expect(commit).to.have.property('committer');
                     expect(commit).to.have.deep.property('sha');
-                    expect(commit).to.have.deep.property('committer.login', settings.testOwner);
+                    expect(commit).to.have.deep.property('committer.login', snode apettings.testOwner);
                 });
                 done();
              } catch(x){

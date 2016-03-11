@@ -4,7 +4,7 @@ const   request = require("request"),
          config = JSON.parse(fs.readFileSync('./config.json'));
 
 /*==============================================================================
-This service takes one owner name and repo name as arguments
+This service takes owner name and repo name as arguments
 Sends get request to github that responses with commit info from all commits 
 made to that particular repo. Resolves that data back to githubrequest-service
 ==============================================================================*/
@@ -66,6 +66,5 @@ module.exports = {
                 }
             });
         });
-        
     }
 };
