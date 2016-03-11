@@ -6,24 +6,21 @@ const   studentService = require("../services/student-service"),
 
 module.exports = {
     process(commits) {
+        console.log(commits);
         return Promise.all(commits.map(commit => {
             return new Promise((resolve, reject) => {
                 studentService.find_by_username(commit.author.username)
                     .then((student) => {
                         geoLocationService.getPosition(student.city)
                             .then((position) => {
-
                                 resolve({
                                     lng: position.lng,
                                     lat: position.lat,
                                     time: Date.parse(commit.timestamp)
-
                                 });
                             });
                     });
-
-                //we have to add dispatch here
-            })
+                });
         })).then((positions) => {
             store.dispatch(actions.addLatestWebhookPositions(positions));
         });

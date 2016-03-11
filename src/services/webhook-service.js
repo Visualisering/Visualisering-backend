@@ -11,6 +11,6 @@ module.exports = {
   process(githubPush){
     let payload = JSON.parse(githubPush);
     sphere.process(payload.commits);
-    matrix.process(payload.commits);
+    matrix.process(payload);
   }
 };

@@ -15,7 +15,7 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "rk222ev@student.lnu.se",
+                    "User-Agent": "",
                     "Authorization": "token 4d8db6bafe22e480bcebc095bcc8b12e9cf23e21"
                 }
             }, function(error, response, body) {
@@ -36,7 +36,7 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": "rk222ev@student.lnu.se",
+                "User-Agent": "",
                 "Authorization": "token 4d8db6bafe22e480bcebc095bcc8b12e9cf23e21"
                 }
             }, function(error, response, body){
@@ -49,5 +49,26 @@ module.exports = {
                 }
             });
         });
+    },
+    getCodeFromWebhookInfo(owner, repo, filename){
+          return new Promise((resolve, reject) => {
+            request({
+                url: config.github + owner  + '/' + repo +'/contents' + filename,
+                method: 'GET',
+                headers: {
+                "User-Agent": "",
+                "Authorization": "token 4d8db6bafe22e480bcebc095bcc8b12e9cf23e21"
+                }
+            }, function(error, response, body){
+                if(error){
+                    console.log(error);
+                reject(error);
+                }
+                else{
+                    resolve(JSON.parse(body).content);
+                }
+            });
+        });
+        
     }
 };
