@@ -5,7 +5,7 @@ const   request = require("request"),
 
 /*==============================================================================
 This service takes one owner name and repo name as arguments
-Sends get request to github that responses with commit info from all commits
+Sends get request to github that responses with commit info from all commits 
 made to that particular repo. Resolves that data back to githubrequest-service
 ==============================================================================*/
 module.exports = {
@@ -23,10 +23,48 @@ module.exports = {
                     reject(error);
                 }
                 else {
-                 //   console.log(body);
+                    resolve(JSON.parse(body)); 
+                }
+            });
+        });
+    },
+    
+    getCommitInfo: (owner, repo, sha) => {
+        return new Promise((resolve, reject) => {
+            request({
+                url: config.github + owner + '/' + repo + '/commits/' + sha,
+                method: 'GET',
+                headers: {
+                "User-Agent": ""
+                }
+            }, function(error, response, body){
+                if(error){
+                    console.log(error);
+                reject(error);
+                }
+                else{
                     resolve(JSON.parse(body));
                 }
             });
         });
+    },
+    getCodeFromWebhookInfo(owner, repo, filename){
+          return new Promise((resolve, reject) => {
+            request({
+                url: config.github + owner  + '/' + repo +'/contents' + filename,
+                method: 'GET',
+                headers: {
+                "User-Agent": ""                }
+            }, function(error, response, body){
+                if(error){
+                    console.log(error);
+                reject(error);
+                }
+                else{
+                    resolve(JSON.parse(body).content);
+                }
+            });
+        });
+        
     }
 };
