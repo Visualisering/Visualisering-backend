@@ -25,9 +25,7 @@ module.exports = {
                let filename = getFileName(commit);
                getCommitsService.getCodeFromWebhookInfo(payload.repository.owner.name, payload.repository.name, filename)
                .then((content)=>{
-                        
                         let code = (content !== undefined) ? content : config.defaultCode; 
-                       
                         resolve({
                         repo: payload.repository.name,
                         owner: payload.repository.owner.name,

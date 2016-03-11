@@ -24,12 +24,12 @@ module.exports = {
                     reject(error);
                 }
                 else {
-                 //   console.log(body);
                     resolve(JSON.parse(body)); 
                 }
             });
         });
     },
+    
     getCommitInfo: (owner, repo, sha) => {
         return new Promise((resolve, reject) => {
             request({

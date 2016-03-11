@@ -23,7 +23,7 @@ describe('geolocation-service', (done) =>{
         });
     });
     
-    it('should return object default values from config file', (done) =>{
+    it('should return object default values from settings file', (done) =>{
         geoLocationService.getPosition('')
         .then((position) =>{
             expect(position).to.be.an('object');

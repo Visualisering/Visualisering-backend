@@ -17,7 +17,6 @@ and dispatched.
 ==============================================================================*/
 module.exports = {
     process() {
-        //console.log(settings.geoentry);
         repoArray.map(owner => {
             getCommitsService.latestCommits(owner.username, owner.repos)
             .then((commitInfo) => {
