@@ -3,9 +3,8 @@
 const   geoLocationService = require("../services/geolocation-service"),
         studentService = require("../services/student-service"),
         store = require("../store/store.js"),
-        actions = require("../store/actions"),
-        _ = require("lodash");
-
+        actions = require("../store/actions");
+        
 /*==============================================================================
 This module processes data that will be dispatched to client spheremodule.
 It takes commitdata from githubrequest-service as an argument.

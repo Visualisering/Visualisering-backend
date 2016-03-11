@@ -23,6 +23,7 @@
     "ws": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^2.4.5"
+    "mocha": "*",
+    "should": ">= 0.0.1"
   }
 }
