@@ -1,12 +1,10 @@
 "use strict";
 
-const   getCommitsService = require("../services/getcommits-service"),
-        sphereProcessor = require("../data-processors/sphere-getrequest"),
-        matrixProcessor = require("../data-processors/matrix-getrequest"),
+const   getCommitsService = require('../services/getcommits-service'),
+        sphereProcessor = require('../data-processors/sphere-getrequest'),
+        matrixProcessor = require('../data-processors/matrix-getrequest'),
         settings = require('../../settings'), 
-        fs = require('fs'),
-        config = JSON.parse(fs.readFileSync('./config.json')),
-        repoArray = require(config.repoArray);
+        repoArray = require(settings.repoArray);
 
 /*==============================================================================
 Process-method iterates over predefined repos from datasets/repos.json

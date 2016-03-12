@@ -45,7 +45,7 @@ function getGeoLocationFromApi(city){
                     }
                 });
                 //if city not found resolve
-                //default values from config file
+                //default values from settings file
                 resolve({
                     lat:config.defaultLatitude, 
                     lng:config.defaultLongitude

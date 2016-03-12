@@ -1,18 +1,17 @@
 "use strict";
-const   request = require("request"),
-        fs = require('fs'),
-         config = JSON.parse(fs.readFileSync('./config.json'));
+const   request = require('request'),
+        settings = require('../../settings');
 
 /*==============================================================================
-This service takes owner name and repo name as arguments
+latestCommits() takes owner name and repo name as arguments
 Sends get request to github that responses with commit info from all commits 
-made to that particular repo. Resolves that data back to githubrequest-service
+made to that particular repo. Returns data back to githubrequest-service
 ==============================================================================*/
 module.exports = {
     latestCommits(owner, repo) {
         return new Promise((resolve, reject) => {
             request({
-                url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
+                url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
                 method: 'GET',
                 headers: {
                     "User-Agent": ""
@@ -32,7 +31,7 @@ module.exports = {
     getCommitInfo: (owner, repo, sha) => {
         return new Promise((resolve, reject) => {
             request({
-                url: config.github + owner + '/' + repo + '/commits/' + sha,
+                url: settings.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
                 "User-Agent": ""
@@ -51,7 +50,7 @@ module.exports = {
     getCodeFromWebhookInfo(owner, repo, filename){
           return new Promise((resolve, reject) => {
             request({
-                url: config.github + owner  + '/' + repo +'/contents' + filename,
+                url: settings.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
                 "User-Agent": ""
