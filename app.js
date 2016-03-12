@@ -36,7 +36,7 @@ store.subscribe(
         type: "BACKEND_DATA",
         data
       });
-      console.log(action);
+    //  console.log(action);
       wss.broadcast(action);
     }
   }
@@ -54,7 +54,7 @@ wss.on("connection", ws => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
       console.log("Received action from client:");
-      console.log(action);
+   //   console.log(action);
       store.dispatch(action);
     }
     catch (e) {
