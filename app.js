@@ -2,26 +2,25 @@
 
 // Dependencies ================================================================
 
-const WebSocketServer = require("ws").Server,
-  httpServer = require("./src/lib/http-server"),
-  store = require("./src/store/store"),
-  githubRequestService = require("./src/services/githubrequest-service"),
-  schedule = require('node-schedule'),
-  server = httpServer.init(),
-  wss = new WebSocketServer({server});
-
+const WebSocketServer = require('ws').Server,
+      httpServer = require('./src/lib/http-server'),
+      store = require('./src/store/store'),
+      githubRequestService = require('./src/services/githubrequest-service'),
+      schedule = require('node-schedule'),
+      server = httpServer.init(),
+      wss = new WebSocketServer({server});
 
 // Start-up data ===============================================================
 
-// Get startup-data for sphere and matrix module 
+// Get startup-data for sphere and matrix module
 githubRequestService.process();
 
-let checkDate = new Date();
-
-// Update commits from github-repos defined in datasets/repos.json 
-// 23.00 every day
+/*==============================================================================
+Update commits from github-repos defined in datasets/repos.json 23.00 every day. 
+Remove this if you only want initial data at server startup and then add a 
+webhook to your organization or repo to push real time data to client.
+==============================================================================*/
 schedule.scheduleJob('/00 00 22 * * 1-7', function() {
-  console.log("schedule at 23 every day" + checkDate.getDate());
   githubRequestService.process();
 });
 
@@ -43,21 +42,18 @@ store.subscribe(
 // websockets ==================================================================
 wss.broadcast = data => wss.clients.forEach(client => client.send(data));
 
-wss.on("connection", ws => {
-  const action = JSON.stringify({
-    type: "WS_CONNECTED"
-  });
+wss.on('connection', ws => {
+  const action = JSON.stringify({type: 'WS_CONNECTED'});
+  
   ws.send(action);
-  ws.on("message", message => {
+  ws.on('message', message => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
-      console.log("Received action from client:");
-   //   console.log(action);
       store.dispatch(action);
     }
     catch (e) {
       console.error(e.message);
-      ws.send("Unable to parse JSON string.");
+      ws.send('Unable to parse JSON string.');
     }
   });
 });

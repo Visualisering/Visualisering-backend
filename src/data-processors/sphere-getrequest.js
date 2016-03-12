@@ -1,17 +1,17 @@
 "use strict";
 
-const   geoLocationService = require("../services/geolocation-service"),
-        studentService = require("../services/student-service"),
-        store = require("../store/store.js"),
-        actions = require("../store/actions");
+const   geoLocationService = require('../services/geolocation-service'),
+        studentService = require('../services/student-service'),
+        store = require('../store/store.js'),
+        actions = require('../store/actions');
         
 /*==============================================================================
-This module processes data that will be dispatched to client spheremodule.
-It takes commitdata from githubrequest-service as an argument.
+This module processes data from github getrequest.
+commitInfo = array of commits from a certain repo.
 Looks up committer in datasets/student.json and returns a student object
 Sends student city to openstreetmap and returns latitude and longitude
 Resolves an array with positions that is dispatched to statetree and sent to 
-client through websockets.
+sphere client through websockets.
 ==============================================================================*/
 
 module.exports = {
@@ -28,13 +28,12 @@ module.exports = {
                                 time: Date.parse(item.commit.author.date)
                             });
                         }).then((positions) => {
-                        //here we ship all positions when promise.all 
-                        //on line 21 i fullfilled
-                        resolve(positions);
+                            resolve(positions);
                         });
                     });
                 });
-        })).then((positionArrays) => {
+        })) //dispatches array with positions when Promise.all is fulfilled
+        .then((positionArrays) => {
         store.dispatch(actions.addLatestPositions(positionArrays));
 
         });

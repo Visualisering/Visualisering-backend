@@ -1,19 +1,24 @@
 "use strict";
-const geoLocationService = require("../services/geolocation-service"),
-    studentService = require("../services/student-service"),
-    fs = require('fs'),
-    config = JSON.parse(fs.readFileSync('./config.json')),
-    repoArray = require(config.repoArray),
-    store = require("../store/store.js"),
-    actions = require("../store/actions"),
-    request = require("request");
+const   store = require("../store/store.js"),
+        actions = require("../store/actions");
+
+/*==============================================================================
+This module extracts data from a github getrequest and when processed dispatches
+an array with objects. Statetree is updated and data sent to client matrix module
+through websockets.
+commitInfo = contains data of commits made to a certain repo.
+owner = repo owner
+commitFiles = files changed in each commit
+==============================================================================*/    
     
 module.exports = {
     process(commitInfo, owner, commitFiles) {
         Promise.all(commitInfo.map((item) => {
-            let code = "";
-            let fileName = "";
+            let code = '';
+            let fileName = '';
             Promise.all(commitFiles.map((file) => {
+                
+                //extracts changed code in commit
                 code += file.patch;
                 fileName = file.filename;
             })).then(() => {
@@ -27,6 +32,8 @@ module.exports = {
                         filename: fileName,
                         code: new Buffer(code).toString('base64')
                     });
+                    //when Promise.all on line 19 is fullfilled array with
+                    //objects are dispatched and statetree is updated.
                 }).then((commitsWithCode) => {
                     store.dispatch(actions.addLatestCommits(commitsWithCode));
                 });

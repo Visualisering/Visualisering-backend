@@ -1,13 +1,15 @@
 "use strict";
 const   request = require('request'),
         settings = require('../../settings');
+        
+//for testing purposes during development "Authorization":"" 1fa3afc8a746e56df1a9c1408f6af8a7ae455965
 
 /*==============================================================================
 latestCommits() takes owner name and repo name as arguments
 Sends get request to github that responses with commit info from all commits 
-made to that particular repo. Returns data back to githubrequest-service
+made to that particular repo. Resolves data back to githubrequest-service
 ==============================================================================*/
-//token för github att använda lokalt token  "Authorization":"" 1fa3afc8a746e56df1a9c1408f6af8a7ae455965
+
 module.exports = {
     latestCommits(owner, repo) {
         return new Promise((resolve, reject) => {
@@ -28,7 +30,13 @@ module.exports = {
             });
         });
     },
-    
+
+/*==============================================================================
+getCommitInfo()  takes owner name, repo name and sha number from a certain 
+commit.Gets info on that certain commit from github. Resolves that data back to 
+githubrequest-service.This function is very similar to the one below but JSON 
+data differs alot between a request to github and a real time webhook.
+==============================================================================*/    
     getCommitInfo: (owner, repo, sha) => {
         return new Promise((resolve, reject) => {
             request({
@@ -48,6 +56,14 @@ module.exports = {
             });
         });
     },
+
+/*==============================================================================
+getCodeFromWebhookInfo() takes owner name, repo name and filename from a 
+certain commit. Gets info on that certain commit from github. 
+Resolves that data back to webhook-service. This function is very similar to the
+one above but JSON data differs alot between a request to github and a real time
+webhook.
+==============================================================================*/
     getCodeFromWebhookInfo(owner, repo, filename){
           return new Promise((resolve, reject) => {
             request({
