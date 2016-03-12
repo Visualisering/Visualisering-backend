@@ -26,6 +26,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "mocha": "*",
-    "should": ">= 0.0.1"
+    "should": ">= 0.0.1",
+    "chai": "*"
   }
 }
