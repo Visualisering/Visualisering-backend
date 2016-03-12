@@ -1,6 +1,5 @@
-const studentFile = require("../../datasets/students.json"),
-  fs = require('fs'),
-  config = JSON.parse(fs.readFileSync('./config.json'));
+const settings = require('../../settings'),
+      studentFile = settings.studentFile;
 
 module.exports = {
 
@@ -13,7 +12,7 @@ module.exports = {
       });
       //if student can't be found set default city from config
       resolve({
-        city: config.defaultCity
+        city: settings.defaultCity
       });
     });
   }
