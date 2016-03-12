@@ -35,13 +35,7 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-<<<<<<< HEAD
                 "User-Agent": ""
-=======
-                "User-Agent": "",
-                "Authorization":"token 624d253ab674a90ddf6272f2b6896cceceaf89b9"
-
->>>>>>> cd5c3d17e93d51765ff65d3ec3267cbd5ae0a6f6
                 }
             }, function(error, response, body){
                 if(error){
