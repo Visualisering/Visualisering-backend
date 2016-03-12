@@ -36,7 +36,7 @@ store.subscribe(
         type: "BACKEND_DATA",
         data
       });
-      console.log(action);
+    //  console.log(action);
       wss.broadcast(action);
     }
   }
