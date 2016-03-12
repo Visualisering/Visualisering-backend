@@ -28,6 +28,7 @@ module.exports = (currentState, action) => {
                     wh_commits: wh_commitsToSendToReducer
                 });
         default:
+        console.log(currentState);
             return currentState;
     }
 };
