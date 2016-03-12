@@ -25,15 +25,15 @@ describe('student-service', () =>{
     });
     
        it('should return student object with city', (done) =>{
-        console.log('Ensure that this test passes an existing student username to method');
+        console.log('Ensure that this test returns an existing student based on username');
        studentService.find_by_username(settings.testUsername)
          .then((student) =>{
              console.log(student);
-             try { // boilerplate to be able to get the assert failures
+             try { 
                 expect(student).to.be.an('object');
                 expect(student).to.have.property('city');
-                //expect(student).to.equal('Falsterbo');
-            done();
+                expect(student.city).to.equal('Falsterbo');
+                done();
             } catch (x) {
                 done(x);
             }

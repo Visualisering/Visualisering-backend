@@ -7,6 +7,7 @@ latestCommits() takes owner name and repo name as arguments
 Sends get request to github that responses with commit info from all commits 
 made to that particular repo. Returns data back to githubrequest-service
 ==============================================================================*/
+//token för github att använda lokalt token  "Authorization":"" 1fa3afc8a746e56df1a9c1408f6af8a7ae455965
 module.exports = {
     latestCommits(owner, repo) {
         return new Promise((resolve, reject) => {
@@ -14,8 +15,7 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "",
-                    "Authorization":"token 624d253ab674a90ddf6272f2b6896cceceaf89b9"
+                    "User-Agent": ""
                 }
             }, function(error, response, body) {
                 if (error) {
@@ -35,9 +35,7 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization":"token 624d253ab674a90ddf6272f2b6896cceceaf89b9"
-
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -56,9 +54,7 @@ module.exports = {
                 url: settings.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization":"token 624d253ab674a90ddf6272f2b6896cceceaf89b9"
-
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){

@@ -8,9 +8,7 @@ const WebSocketServer = require("ws").Server,
   githubRequestService = require("./src/services/githubrequest-service"),
   schedule = require('node-schedule'),
   server = httpServer.init(),
-  wss = new WebSocketServer({
-    server
-  });
+  wss = new WebSocketServer({server});
 
 
 // Start-up data ===============================================================

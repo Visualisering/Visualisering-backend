@@ -9,7 +9,7 @@ const chai = require('chai'),
 chai.use(chaiAsPromised);
 
 describe('getcommits-service', () =>{
-    it('latestCommits() should return an array response with correct properties', (done) =>{
+   it('latestCommits() should return an array response with correct properties', (done) =>{
         getcommitsService.latestCommits(settings.testOwner, settings.testRepo)
         .then((response) =>{
              try {
@@ -17,7 +17,7 @@ describe('getcommits-service', () =>{
                 response.map((commit) =>{
                     expect(commit).to.have.property('committer');
                     expect(commit).to.have.deep.property('sha');
-                    expect(commit).to.have.deep.property('committer.login', snode apettings.testOwner);
+                    expect(commit).to.have.deep.property('committer.login');
                 });
                 done();
              } catch(x){
@@ -41,6 +41,4 @@ describe('getcommits-service', () =>{
             });
         });
     });
-    
-    
 });

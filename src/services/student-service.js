@@ -1,5 +1,5 @@
 const settings = require('../../settings'),
-      studentFile = settings.studentFile;
+      studentFile = require('../../datasets/students.json');
 
 module.exports = {
 
@@ -7,7 +7,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       studentFile.forEach((student) => {
         if (student.services.github === username) {
-          resolve(student);
+            resolve(student);
         }
       });
       //if student can't be found set default city from config
