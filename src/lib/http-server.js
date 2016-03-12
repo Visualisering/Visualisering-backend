@@ -22,9 +22,26 @@ module.exports = {
             });
 
             req.on('end', function() {
-              webhookService.process(data);
-              res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-              res.end();
+              
+              if(data.length > 0){
+                try{
+                  let githubPush = JSON.parse(data);
+                  webhookService.process(githubPush);
+                  res.writeHead(200, "OK", {'Content-Type': 'text/html'});
+                  res.end();
+                }
+                catch(err){
+                  console.log(err);
+                  console.log('not valid X-GitHub-Event: push');
+                  res.writeHead(400, "Bad request", {'Content-Type': 'text/html'});
+                  res.end('<html><head><title>400 - Bad request </title></head><body><h1>Bad request.</h1><p>Please send valid X-GitHub-Event: push </p></body></html>');
+                }
+              }
+              else{
+                console.log('[400] body cannot be empty');
+                res.writeHead(400, "Bad request", {'Content-Type': 'text/html'});
+                res.end('<html><head><title>400 - Bad request </title></head><body><h1>Bad request.</h1><p>Body cannot be empty</p></body></html>');
+              }
             });
 
           } else {

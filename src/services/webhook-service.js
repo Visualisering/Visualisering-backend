@@ -9,8 +9,8 @@ const actions = require("../store/actions");
 // the data before sending it to frontend
 module.exports = {
   process(githubPush) {
-    let payload = JSON.parse(githubPush);
-    sphere.process(payload.commits);
-    matrix.process(payload);
+   
+    sphere.process(githubPush.commits);
+    matrix.process(githubPush);
   }
 };

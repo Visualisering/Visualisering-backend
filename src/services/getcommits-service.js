@@ -15,7 +15,8 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits' + config.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": ""
+                    "User-Agent": "",
+                    "Authorization":"token 51e1f95a8acf12ddc6b4fee1fdbc56309eeb8189"
                 }
             }, function(error, response, body) {
                 if (error) {
@@ -35,7 +36,9 @@ module.exports = {
                 url: config.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": "",
+                "Authorization":"token 51e1f95a8acf12ddc6b4fee1fdbc56309eeb8189"
+
                 }
             }, function(error, response, body){
                 if(error){
@@ -54,7 +57,9 @@ module.exports = {
                 url: config.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": "",
+                "Authorization":"token 51e1f95a8acf12ddc6b4fee1fdbc56309eeb8189"
+
                 }
             }, function(error, response, body){
                 if(error){
