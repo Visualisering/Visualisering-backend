@@ -19,7 +19,7 @@ you feel like adding components and functionality to this application head over 
 <a>https://github.com/Visualisering/Visualisering/wiki/Adding-a-new-datasource</a>
 
 There are two ways that server retrieves data from github</br>
-1. With a get request to github with information of which repos server wishes to get commit info from.
+1. With a get request to github with information of which repos server wishes to get commit info from.<br>
 2. With an active github webhook that post commit informationen to endpoint /commit when a push is
 made to an organization repo.
 
