@@ -11,15 +11,15 @@ Connect to websocket
 ```shell
 $ wscat -c ws://localhost:5000
 ```
-```shell
+<pre>
 ###General information
 ###-------------------
 This repository contains a backend api that serves data from github commits to clients. 
 Application is written in javascript and runs on a node server. It's open source so if 
 you feel like adding components and functionality to this application head over here:
 <a>https://github.com/Visualisering/Visualisering/wiki/Adding-a-new-datasource</a>
+</pre>
 
-```
 Startup
 When server starts up, inital data is loaded from app.js
 by calling method process() from sphere-getrequest-file.
