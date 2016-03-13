@@ -40,13 +40,6 @@ store.subscribe(
 );
 
 // websockets ==================================================================
-
-  
-  ws.send(action);
-  
-  ws.on("message", message => {
-    try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
-      const action = JSON.parse(message);
 wss.broadcast = data => wss.clients.forEach(
   client => {
     client.send(data);
