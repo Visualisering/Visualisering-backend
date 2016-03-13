@@ -13,6 +13,7 @@ $ wscat -c ws://localhost:5000
 ```
 
 ###General information
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 This repository contains a backend api that serves data from github commits to clients. 
 Application is written in javascript and runs on a node server. It's open source so if 
 you feel like adding components and functionality to this application head over here:</br>
