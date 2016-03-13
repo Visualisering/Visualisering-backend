@@ -1,11 +1,7 @@
 "use strict";
 const http = require('http'),
-<<<<<<< fa080a4f29aa2c11bcee128d3beb93eb39261403
-      webhookService = require('../services/webhook-service');
-=======
       webhookService = require('../services/webhook-service'),
       fs = require('fs');
->>>>>>> working on startpage
 
 /*==============================================================================
 This module returns a new server instance and handles routing.
@@ -33,7 +29,6 @@ module.exports = {
         }
       });
         break;
-<<<<<<< fa080a4f29aa2c11bcee128d3beb93eb39261403
       
       //Would handle the webhook post from github.
       case '/commit':
@@ -53,32 +48,6 @@ module.exports = {
                 webhookService.process(githubPush);
                 res.writeHead(200, "OK", {'Content-Type': 'text/html'});
                 res.end();
-=======
-        //Would handle the webhook post from github.
-        case '/commit':
-          if (req.method == 'POST') {
-            console.log("[200] " + req.method + " to " + req.url);
-            let data = '';
-            req.on('data', function(chunk) {
-                data += chunk;
-            });
-
-            req.on('end', function() {
-              
-              if(data.length > 0){
-                try{
-                  let githubPush = JSON.parse(data);
-                  res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-                  webhookService.process(githubPush);
-                  res.end();
-                }
-                catch(err){
-                  console.log(err);
-                  console.log('not valid X-GitHub-Event: push');
-                  res.writeHead(400, "Bad request", {'Content-Type': 'text/html'});
-                  res.end('<html><head><title>400 - Bad request </title></head><body><h1>Bad request.</h1><p>Please send valid X-GitHub-Event: push </p></body></html>');
-                }
->>>>>>> working on startpage
               }
               catch(err){
                 console.log(err);
