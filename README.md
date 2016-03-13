@@ -12,7 +12,7 @@ Connect to websocket
 $ wscat -c ws://localhost:5000
 ```
 ```shell
-<h1>General information</h1>
+**General information**
 -------------------
 This repository contains a backend api that serves data from github commits to clients. 
 Application is written in javascript and runs on a node server. It's open source so if 
