@@ -2,7 +2,6 @@
 const   request = require('request'),
         settings = require('../../settings');
         
-//for testing purposes during development "Authorization":"" 1fa3afc8a746e56df1a9c1408f6af8a7ae455965
 
 /*==============================================================================
 latestCommits() takes owner name and repo name as arguments
@@ -17,9 +16,8 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "",
-                     "Authorization":"token 328e612b18861c5a1b39abebb58a590fcfc8a66d"
-                }
+                    "User-Agent": ""
+                    }
             }, function(error, response, body) {
                 if (error) {
                     console.log(error);
