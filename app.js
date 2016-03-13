@@ -33,13 +33,14 @@ store.subscribe(
         type: "BACKEND_DATA",
         data
       });
-    //  console.log(action);
+  //    console.log(action);
       wss.broadcast(action);
     }
   }
 );
 
 // websockets ==================================================================
+<<<<<<< fa080a4f29aa2c11bcee128d3beb93eb39261403
 wss.broadcast = data => wss.clients.forEach(client => client.send(data));
 
 wss.on('connection', ws => {
@@ -49,6 +50,24 @@ wss.on('connection', ws => {
   ws.on('message', message => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
+=======
+wss.broadcast = data => wss.clients.forEach(
+  client => {
+    client.send(data);
+  });
+  
+wss.on("connection", ws => {
+  const action = JSON.stringify({
+    type: "WS_CONNECTED"
+  });
+  
+  ws.send(action);
+  
+  ws.on("message", message => {
+    try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
+      const action = JSON.parse(message);
+      console.log("Received action from client:");
+>>>>>>> working on startpage
       store.dispatch(action);
     }
     catch (e) {

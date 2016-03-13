@@ -1,5 +1,7 @@
 ## Node with redux data store
 
+Backend server is running at [http://iviz-back.herokuapp.com] (http://iviz-back.herokuapp.com)
+
 Start server
 
 ```shell
