@@ -11,7 +11,16 @@ Connect to websocket
 ```shell
 $ wscat -c ws://localhost:5000
 ```
-** Startup **
+```shell
+General information
+-------------------
+This repository contains a backend api that serves data from github commits to clients. 
+Application is written in javascript and runs on a node server. It's open source so if 
+you feel like adding components and functionality to this application head over here:
+
+
+```
+Startup
 When server starts up, inital data is loaded from app.js
 by calling method process() from sphere-getrequest-file.
 Method asks github for commits made to repos defined in datasets/repos.json
