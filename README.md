@@ -16,7 +16,7 @@ $ wscat -c ws://localhost:5000
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 This repository contains a backend api that serves data from github commits to clients. 
 Application is written in javascript and runs on a node server. It's open source so if 
-you feel like adding components and functionality to this application head over here:</br>
+you feel like adding components and functionality to this application head over here:
 <a>https://github.com/Visualisering/Visualisering/wiki/Adding-a-new-datasource</a>
 
 There are two ways that server retrieves data from github</br>
