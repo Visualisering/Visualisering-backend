@@ -13,14 +13,18 @@ $ wscat -c ws://localhost:5000
 ```
 
 ###General information
-###-------------------
 This repository contains a backend api that serves data from github commits to clients. 
 Application is written in javascript and runs on a node server. It's open source so if 
-you feel like adding components and functionality to this application head over here:
+you feel like adding components and functionality to this application head over here:</br>
 <a>https://github.com/Visualisering/Visualisering/wiki/Adding-a-new-datasource</a>
 
+There are two ways that server retrieves data from github</br>
+1. With a get request to github with information of which repos server wishes to get commit info from.
+2. With an active github webhook that post commit informationen to endpoint /commit when a push is
+made to an organization repo.
 
-Startup
+
+###Startup
 When server starts up, inital data is loaded from app.js
 by calling method process() from sphere-getrequest-file.
 Method asks github for commits made to repos defined in datasets/repos.json
