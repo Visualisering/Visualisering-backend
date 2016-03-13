@@ -1,64 +1,46 @@
-###General information
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-This repository contains a backend api that serves data from github commits to clients. 
-Application is written in javascript and runs on a node server. It's open source so if 
-you feel like adding components and functionality to this application head over here:
-<a>https://github.com/Visualisering/Visualisering/wiki/Adding-a-new-datasource</a>
+<!DOCTYPE html>
+<html>
 
-Backend server is running at [http://iviz-back.herokuapp.com] (http://iviz-back.herokuapp.com). Go there for more detailed instructions on how to connect to the websocket-server.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>iViz-backend</title>
+</head>
 
-###Configure your own backend server
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-There are two ways that server retrieves data from github</br>
-1. With a get request to github with information on which repos server wishes to get commit info from.<br>
-2. With an active github webhook that POST commit information to application endpoint /commit when a push is
-made to an organization repo.
+<body>
+    <h1>iViz-backend</h1>
+    <p>This is the backend-server for the opensource-project "Visualisering". The project is created during the course "Webproject 1" at the Linneaus University in Sweden. 
+    The server retrieves and process commit-data from the github-api and there are two ways that the server retrieves the data:</p>
+    <ol>
+        <li>With a get request to github with information on which repos server wishes to get commit info from.</li>
+        <li> With an active github webhook that POST commit information to application endpoint /commit when a push is made to an organization repo.</li>
+    </ol>
+    <h2>Connect client to websocket</h2>
+    <p>Create your own connection to the websocket-server by connecting to: </p>
+    <pre>ws://iviz-back.herokuapp.com/</pre>
+    <p> Depending on framework and libraries used this can be done in different ways, but usually, you create a connection to the websocket-server by using: </p>
+    <pre>let ws = new WebSocket("wss://iviz-back.herokuapp.com");</pre>
+  
+     <h2>Recieve data from websocket</h2> 
+     <p>Once connected to the websocket-server, you can get hold of the data through sending the message:<code>{"type":"WS_REQUEST_DATA"}</code> to the server. This can be done by using: <code>ws.send({"type":"WS_REQUEST_DATA"});</code></p>
+    <p> You will find more information about using websockets and writing client-side applications using websockets on MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">Websockets on Mozilla Developer Network</a></p>
 
-The data is processed and will send the data to clients connected to the websocket, either on request from the client or when the state changes.
- The data is in JSON-format and contain information about:
- <ul>
-        <li>"positions": Gives an array with objects containing latitude, longitude (retrieved from OpenStreetMap) and a unix timestamp for commits made in the repos defined in the application, updated everyday at 23 CET.</li>
-        <li>"commits": Gives an array with objects containing reponame, owner of repo, timestamp, message, committer, filename and code from the file(base64-encoded) for commits made in the repos defined in the application, updated everyday at 23 CET.</li>
-        <li>"wh_commits: Same info as in "commits" but data is recieved through posts to /commit from github-webhooks defined in repos, data is recieved in real-time.</li>
-        <li>"wh_positions: Same info as in "positions" but data is recieved through post to /commit from github-webhooks defined in repos, data is recieved in real-time.</li>
+    <p>If you just want to take a look at the data you can use a Websocket client such as the <a href="https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en">Simple WebSocket Client</a> - plugin to Chrome or
+  using an online test-client such as <a href="http://www.websocket.org/echo.html"> websocket.org/echo.html</a>. Simply connect to the websocket server and send the message <code>{"type":"WS_REQUEST_DATA"}</code> to look at the data available.</p>
+  
+    <h2>Data available</h2>
+        The data available at the moment are commits and the location of the committers from repos of the project-members. If you want to configure your own app and add your own repos to watch, 
+        please checkout the <a href="https://github.com/Visualisering/Visualisering-backend/blob/master/README.md">readme</a> in our <a href="https://github.com/Visualisering/Visualisering-backend.git">github-repo</a>.
+
+    <p>When asking for data, you will then get a response with the following content:</p>
+    <ul>
+        <li>"positions": Gives an array with objects containing latitude, longitude and a unix timestamp for commits made in the repos defined in the application, updated everyday at 22 CET.</li>
+        <li>"commits": Gives an array with objects containing reponame, owner of repo, timestamp, message, committer, filename and code from the file(base64-encoded) for commits made in the repos defined in the application, updated everyday at 22 CET.</li>
+        <li>"wh_commits: Same info as in "commits" but data is recieved through posts to /commit from github-webhooks defined in repos, data is recieved in real-time</li>
+        <li>"wh_positions: Same info as in "positions" but data is recieved through post to /commit from github-webhooks defined in repos, data is recieved in real-time</li>
     </ul>
-
-If you want to configure your own backend server, make sure you have Node.js installed, clone this repo and follow the instructions below:
-####Startup
-First time: run 
-```shell
-$ npm install
-``` 
-to install libraries used in the application.
-
-Start server
-
-```shell
-$ npm start
-```
-
-Connect to websocket
-
-```shell
-$ wscat -c ws://localhost:5000
-```
-###Add repos to watch
-In datasets/repos.json, add the repos you want to watch:
-```
-[
-    {
-        "username":"username of repoowners",
-        "repos":"reponame"
-    },
-    {
-        "username":"another repoowner",
-        "repos":"another repo"
-    }
-]
-```
-This will request data from github server start and  everyday at 23 CET.
-####Github webhook
-The application will update the state-tree with information in real-time if you add a webhook to a repo with the address to your own deployment and the endpoint ```/commit```. For more information about github-webhooks, please look [here](https://developer.github.com/webhooks/).
-
-####Settings
-In settings.js, you can change number of commits retrieved from each repo, and defaultCity, defaultLongitude and defaultLatitude to use if no location is found and and defaultCode if github-commit-code is undefined.
+  <h2>Customize...</h2>
+    <p>Please fork this repo and configure with your own repos and use your own webhooks! Read further on the  <a href="https://github.com/Visualisering/Visualisering-backend/blob/master/README.md">repo-readme</a> for instructions how to customize your application. Do you want to change something or add more functionality, please make a pullrequest!</p>
+    <a href="https://github.com/Visualisering/Visualisering-backend.git">iViz repo!</a>
+    </body>
+    </html>
