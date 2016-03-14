@@ -5,4 +5,4 @@ node_js:
   - "4.0"
   env:
   global:
-    - GITHUB_TOKEN: $GITHUB_TOKEN
+    - secure: $GITHUB_TOKEN
