@@ -16,7 +16,8 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": ""
+                    "User-Agent": "",
+                    "Authorization": "token " +  GITHUB_TOKEN
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -42,7 +43,8 @@ data differs alot between a request to github and a real time webhook.
                 url: settings.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": "",
+                "Authorization": "token " +  GITHUB_TOKEN
 
                 }
             }, function(error, response, body){
@@ -70,7 +72,8 @@ webhook.
                 url: settings.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": "",
+                "Authorization": "token " +  GITHUB_TOKEN
 
                 }
             }, function(error, response, body){
