@@ -1,6 +1,7 @@
 "use strict";
 const   store = require("../store/store.js"),
-        actions = require("../store/actions");
+        actions = require("../store/actions"),
+        cacheService = require('../services/cache-service');
 
 /*==============================================================================
 This module extracts data from a github getrequest and when processed dispatches
@@ -34,8 +35,15 @@ module.exports = {
                     });
                     //when Promise.all on line 19 is fullfilled array with
                     //objects are dispatched and statetree is updated.
-                }).then((commitsWithCode) => {
-                    store.dispatch(actions.addLatestCommits(commitsWithCode));
+                }).then((commitsArray) => {
+                    cacheService.cacheCommits(commitsArray)
+                    .then(() =>{
+                       cacheService.getCachedCommits()
+                       .then((commits) =>{
+                           store.dispatch(actions.addLatestCommits(commits));
+                       });
+                    });
+                    
                 });
             });
         }));

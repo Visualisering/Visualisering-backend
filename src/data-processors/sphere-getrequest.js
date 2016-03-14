@@ -17,7 +17,6 @@ sphere client through websockets.
 
 module.exports = {
     process(commitInfo){
-        //second Promise.all iterates through commitarray from github
         Promise.all(commitInfo.map((item) => {
             return new Promise((resolve, reject) => {
                 studentService.find_by_username(item.committer.login)
@@ -34,12 +33,13 @@ module.exports = {
                     });
                 });
         })) //dispatches array with positions when Promise.all is fulfilled
-        .then((positionArrays) => {
-        
-            cacheService.cachePositions(positionArrays)
+        .then((positionArray) => {
+            cacheService.cachePositions(positionArray)
             .then(() =>{
-                store.dispatch(actions.addLatestPositions(positionArrays));
-    
+                cacheService.getCachedPositions()
+                .then((positions) =>{
+                    store.dispatch(actions.addLatestPositions(positions));
+                });
             });
         });
     },
