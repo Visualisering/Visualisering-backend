@@ -71,8 +71,6 @@ webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": ""
-                "User-Agent": ""
-
                 }
             }, function(error, response, body){
                 if(error){
