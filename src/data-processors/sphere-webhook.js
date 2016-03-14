@@ -36,7 +36,13 @@ module.exports = {
             .then(() =>{
                 cacheService.getCachedPositions()
                 .then((positions) =>{
-                    store.dispatch(actions.addLatestPositions(positions));
+                   /*-----------------------------------------------------------
+                   uncomment this line if you want ping from webhook
+                   to dispatch and send realtime data to client. Otherwise 
+                   server will only send data to client at server startup and at 
+                   the scheduled event defined in app.js (once a day at 23.00)
+                   -----------------------------------------------------------*/
+                    //store.dispatch(actions.addLatestPositions(positions));
                 });
             });
         });
