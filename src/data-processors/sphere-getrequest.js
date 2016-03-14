@@ -2,6 +2,7 @@
 
 const   geoLocationService = require('../services/geolocation-service'),
         studentService = require('../services/student-service'),
+        cacheService = require('../services/cache-service'),
         store = require('../store/store.js'),
         actions = require('../store/actions');
         
@@ -34,8 +35,12 @@ module.exports = {
                 });
         })) //dispatches array with positions when Promise.all is fulfilled
         .then((positionArrays) => {
-        store.dispatch(actions.addLatestPositions(positionArrays));
-
+        
+            cacheService.cachePositions(positionArrays)
+            .then(() =>{
+                store.dispatch(actions.addLatestPositions(positionArrays));
+    
+            });
         });
-    }
+    },
 };
