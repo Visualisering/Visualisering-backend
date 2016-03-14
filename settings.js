@@ -20,6 +20,7 @@ let settings = {
     //Test settings
     testRepo: "TRAFFICREPORTS_js223kz",
     testOwner: "js223kz",
-    testUsername: "js223kz"
+    testUsername: "js223kz",
+    testFile: "/app/public/controllers/mainController.js"
 };
 module.exports = settings;
