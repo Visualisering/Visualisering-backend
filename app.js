@@ -33,22 +33,29 @@ store.subscribe(
         type: "BACKEND_DATA",
         data
       });
-    //  console.log(action);
+   //  console.log(action);
       wss.broadcast(action);
     }
   }
 );
 
 // websockets ==================================================================
-wss.broadcast = data => wss.clients.forEach(client => client.send(data));
-
-wss.on('connection', ws => {
-  const action = JSON.stringify({type: 'WS_CONNECTED'});
+wss.broadcast = data => wss.clients.forEach(
+  client => {
+    client.send(data);
+  });
+  
+wss.on("connection", ws => {
+  const action = JSON.stringify({
+    type: "WS_CONNECTED"
+  });
   
   ws.send(action);
-  ws.on('message', message => {
+  
+  ws.on("message", message => {
     try { // Using a try-catch because JSON.parse explodes on invlaid JSON.
       const action = JSON.parse(message);
+      console.log("Received action from client:");
       store.dispatch(action);
     }
     catch (e) {

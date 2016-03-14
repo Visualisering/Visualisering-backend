@@ -2,7 +2,6 @@
 const   request = require('request'),
         settings = require('../../settings');
         
-//for testing purposes during development "Authorization":"" 1fa3afc8a746e56df1a9c1408f6af8a7ae455965
 
 /*==============================================================================
 latestCommits() takes owner name and repo name as arguments
@@ -18,7 +17,7 @@ module.exports = {
                 method: 'GET',
                 headers: {
                     "User-Agent": ""
-                }
+                    }
             }, function(error, response, body) {
                 if (error) {
                     console.log(error);
@@ -44,6 +43,7 @@ data differs alot between a request to github and a real time webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": ""
+
                 }
             }, function(error, response, body){
                 if(error){
@@ -71,6 +71,7 @@ webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": ""
+
                 }
             }, function(error, response, body){
                 if(error){

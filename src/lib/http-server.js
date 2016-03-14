@@ -1,6 +1,7 @@
 "use strict";
 const http = require('http'),
-      webhookService = require('../services/webhook-service');
+      webhookService = require('../services/webhook-service'),
+      fs = require('fs');
 
 /*==============================================================================
 This module returns a new server instance and handles routing.
@@ -14,9 +15,19 @@ module.exports = {
       //routes
       switch (req.url) {
       case "/":
-        console.log("[501] " + req.method + " to " + req.url);
-        res.writeHead(501, "Not implemented", {"Content-Type": "text/html"});
-        res.end("<html><head><title>501 - Not implemented</title></head><body><h1>Not implemented!</h1></body></html>");
+        fs.readFile("./index.html", function(err, data){
+        if(!err){
+        console.log("[200] " + req.method + " to " + req.url);
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        res.end();
+        }
+        else{
+        console.log(err);
+        res.writeHead(500, 'Internal server error', {'Content-Type': 'text/html'});
+        res.end('<html><head><title>500 - Internal server error </title></head><body><h1>Internal server error</h1></body></html>');
+        }
+      });
         break;
       
       //Would handle the webhook post from github.
