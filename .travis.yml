@@ -3,6 +3,3 @@ node_js:
   - "stable"
   - "4.1"
   - "4.0"
-  env:
-  global:
-    - secure: $GITHUB_TOKEN
