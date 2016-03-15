@@ -7,7 +7,7 @@ let settings = {
     repoArray: "../../datasets/repos.json",
     
     //number of commits per repo wanted from github request
-    numberOfCommits: "?page=1&per_page=20",
+    numberOfCommits: "?page=1&per_page=2",
     
     //default values to fall back on if github username is undefined
     defaultCity: "Kalmar",
@@ -20,6 +20,7 @@ let settings = {
     //Test settings
     testRepo: "TRAFFICREPORTS_js223kz",
     testOwner: "js223kz",
-    testUsername: "js223kz"
+    testUsername: "js223kz",
+    testFile: "/app/public/controllers/mainController.js"
 };
 module.exports = settings;

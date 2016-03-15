@@ -48,7 +48,7 @@ data differs alot between a request to github and a real time webhook.
             }, function(error, response, body){
                 if(error){
                     console.log(error);
-                reject(error);
+                    reject(error);
                 }
                 else{
                     resolve(JSON.parse(body));
@@ -71,12 +71,11 @@ webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": ""
-
                 }
             }, function(error, response, body){
                 if(error){
                     console.log(error);
-                reject(error);
+                    reject(error);
                 }
                 else{
                     resolve(JSON.parse(body).content);

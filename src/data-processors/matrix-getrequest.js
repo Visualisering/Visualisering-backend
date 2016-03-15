@@ -1,6 +1,7 @@
 "use strict";
 const   store = require("../store/store.js"),
-        actions = require("../store/actions");
+        actions = require("../store/actions"),
+        cacheService = require('../services/cache-service');
 
 /*==============================================================================
 This module extracts data from a github getrequest and when processed dispatches
@@ -14,15 +15,15 @@ commitFiles = files changed in each commit
 module.exports = {
     process(commitInfo, owner, commitFiles) {
         Promise.all(commitInfo.map((item) => {
-            let code = '';
-            let fileName = '';
-            Promise.all(commitFiles.map((file) => {
-                
-                //extracts changed code in commit
-                code += file.patch;
-                fileName = file.filename;
-            })).then(() => {
-                return new Promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
+                let code = '';
+                let fileName = '';
+                Promise.all(commitFiles.map((file) => {
+                    //extracts changed code in commit
+                    code += file.patch;
+                    fileName = file.filename;
+                }))
+                .then(() => {
                     resolve({
                         repo: owner.repos,
                         owner: owner.username,
@@ -32,12 +33,23 @@ module.exports = {
                         filename: fileName,
                         code: new Buffer(code).toString('base64')
                     });
-                    //when Promise.all on line 19 is fullfilled array with
-                    //objects are dispatched and statetree is updated.
-                }).then((commitsWithCode) => {
-                    store.dispatch(actions.addLatestCommits(commitsWithCode));
+                        
+                }).then((commits) =>{
+                    resolve(commits);
                 });
             });
-        }));
+        }))//when Promise.all on line 19 is fullfilled array with
+           //objects are dispatched and statetree is updated.
+        .then((commitsArray) => {
+            cacheService.cacheCommits(commitsArray)
+            .then(() =>{
+               cacheService.getCachedCommits()
+               .then((cachedCommits) =>{
+                   store.dispatch(actions.addLatestCommits(cachedCommits));
+               });
+            });
+        });
     }
 };
+
+

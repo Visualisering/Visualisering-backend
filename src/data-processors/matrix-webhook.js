@@ -2,7 +2,8 @@
 const   settings = require('../../settings'),
         store = require('../store/store.js'),
         actions = require('../store/actions'),
-        getCommitsService = require('../services/getcommits-service');
+        getCommitsService = require('../services/getcommits-service'),
+        cacheService = require('../services/cache-service');
 
 /*==============================================================================
 Helper function that returns first added och modified file in a  certain commit
@@ -51,10 +52,22 @@ module.exports = {
                });
              });
          }))
-         //when Promise.all on lie 33 is fulfilled dispatch array with objects
+         //when Promise.all on line 34 is fulfilled dispatch array with objects
          //and update statetree
          .then((commitsArray) =>{
-            store.dispatch(actions.addLatestWebhookCommits(commitsArray));
+            cacheService.cacheCommits(commitsArray)
+            .then(() =>{
+               cacheService.getCachedCommits()
+               .then((commits) =>{
+                   /*-----------------------------------------------------------
+                   uncomment this line if you want ping from webhook
+                   to dispatch and send realtime data to client. Otherwise 
+                   server will only send data to client at server startup and at 
+                   the scheduled event defined in app.js (once a day at 23.00)
+                   -----------------------------------------------------------*/
+                   //store.dispatch(actions.addLatestCommits(commits));
+               });
+            });
         });
     }
 };

@@ -25,6 +25,6 @@ module.exports = {
       return {
         type: "ADD_WH_COMMITS",
         wh_commits
-      }
+      };
     }
 };

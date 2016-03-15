@@ -33,8 +33,8 @@ store.subscribe(
         type: "BACKEND_DATA",
         data
       });
-   //  console.log(action);
-      wss.broadcast(action);
+    console.log(action);
+    wss.broadcast(action);
     }
   }
 );

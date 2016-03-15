@@ -1,6 +1,7 @@
 "use strict";
 const   studentService = require('../services/student-service'),
         geoLocationService = require('../services/geolocation-service'),
+        cacheService = require('../services/cache-service'),
         store = require('../store/store.js'),
         actions = require('../store/actions');
         
@@ -30,8 +31,20 @@ module.exports = {
                     });
                 });
         }))//dispatches array with positions when Promise.all is fulfilled
-        .then((positions) => {
-            store.dispatch(actions.addLatestWebhookPositions(positions));
+        .then((positionsArray) => {
+            cacheService.cachePositions(positionsArray)
+            .then(() =>{
+                cacheService.getCachedPositions()
+                .then((positions) =>{
+                   /*-----------------------------------------------------------
+                   uncomment this line if you want ping from webhook
+                   to dispatch and send realtime data to client. Otherwise 
+                   server will only send data to client at server startup and at 
+                   the scheduled event defined in app.js (once a day at 23.00)
+                   -----------------------------------------------------------*/
+                    //store.dispatch(actions.addLatestPositions(positions));
+                });
+            });
         });
     }
 };
