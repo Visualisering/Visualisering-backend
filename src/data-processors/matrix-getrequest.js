@@ -44,8 +44,8 @@ module.exports = {
             cacheService.cacheCommits(commitsArray)
             .then(() =>{
                cacheService.getCachedCommits()
-               .then((commits) =>{
-                   store.dispatch(actions.addLatestCommits(commits));
+               .then((cachedCommits) =>{
+                   store.dispatch(actions.addLatestCommits(cachedCommits));
                });
             });
         });
