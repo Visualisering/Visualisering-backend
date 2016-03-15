@@ -11,8 +11,7 @@ module.exports = {
                 newPositionsArray.push(position);
             }))
             .then(() =>{
-                fs.writeFile("./src/cache/positions.json", JSON.stringify(newPositionsArray, null, 4), 
-                (error) => {
+                fs.writeFile("./src/cache/positions.json", JSON.stringify(newPositionsArray, null, 4), (error) => {
                     if(error) {
                         reject("Error when caching positions: " + error);
                     }
@@ -35,8 +34,7 @@ module.exports = {
                 newCommitsArray.push(commit);
             }))
             .then(() =>{
-                fs.writeFile("./src/cache/commits.json", JSON.stringify(newCommitsArray, null, 4), 
-                (error) => {
+                fs.writeFile("./src/cache/commits.json", JSON.stringify(newCommitsArray, null, 4), (error) => {
                     if(error) {
                         reject("Error when caching commits: " + error);
                     }
