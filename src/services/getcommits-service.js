@@ -2,7 +2,6 @@
 const   request = require('request'),
         settings = require('../../settings');
         
-//for testing purposes during development "Authorization":"" 1fa3afc8a746e56df1a9c1408f6af8a7ae455965
 
 /*==============================================================================
 latestCommits() takes owner name and repo name as arguments
@@ -17,8 +16,7 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "",
-                    Authorization: "token 1d5fcae6d8241d33f46111f578a009502085f6ff"
+                    "User-Agent": ""
                 }
             }, function(error, response, body) {
                 if (error) {
@@ -44,8 +42,7 @@ data differs alot between a request to github and a real time webhook.
                 url: settings.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                Authorization: "token 1d5fcae6d8241d33f46111f578a009502085f6ff"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -72,8 +69,7 @@ webhook.
                 url: settings.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                Authorization: "token 1d5fcae6d8241d33f46111f578a009502085f6ff"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){

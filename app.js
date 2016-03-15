@@ -34,7 +34,7 @@ store.subscribe(
         data
       });
     console.log(action);
-      wss.broadcast(action);
+    wss.broadcast(action);
     }
   }
 );
