@@ -8,7 +8,6 @@ This module checks to see if committers username is defined in
 datasets/student.json. If it is defined it resolves that students city.
 If not it checks if user has specified location in github account.
 ==============================================================================*/
-
 module.exports = {
   find_by_username(username) {
     return new Promise((resolve, reject) => {
@@ -17,9 +16,10 @@ module.exports = {
             resolve(student);
         }
       });
-      //if user can't be found among students, get location from github-profile
-      resolve(getCommitsService.getUserLocation(username));
+      //if student can't be found set default city from config
+      resolve({
+        city: settings.defaultCity
+      });
     });
-  },
-
+  }
 };
