@@ -23,6 +23,7 @@ module.exports = {
             .then((lastModified)=>{
                 getCommitsService.latestCommits(owner.username, owner.repos,lastModified)
                 .then((commitInfo) => {
+                    console.log(commitInfo);
                     sphereProcessor.process(commitInfo);
                     getCommitsService.getCommitInfo(owner.username, owner.repos, commitInfo[0].sha)
                     .then((specificCommit) => {
