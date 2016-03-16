@@ -13,8 +13,7 @@ module.exports = {
     latestCommits(owner, repo,lastModified) {
         return new Promise((resolve, reject) => {
             request({
-                url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since=2016-02-20T00:00:00+00:00',
-                //?since=' + lastModified,
+                url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since=' + lastModified,
                 method: 'GET',
                 headers: {
                     "User-Agent": "",
