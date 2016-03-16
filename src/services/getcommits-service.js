@@ -16,7 +16,9 @@ module.exports = {
                 url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
                 method: 'GET',
                 headers: {
-                    "User-Agent": ""
+                    "User-Agent": "",
+                    "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
+
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -42,7 +44,9 @@ data differs alot between a request to github and a real time webhook.
                 url: settings.github + owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": "",
+                "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
+
 
                 }
             }, function(error, response, body){
@@ -70,7 +74,8 @@ webhook.
                 url: settings.github + owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": "",
+                "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
                 }
             }, function(error, response, body){
                 if(error){
@@ -82,5 +87,27 @@ webhook.
                 }
             });
         });
+    },
+    getUserLocation(username){
+        return new Promise((resolve,reject)=>{
+             request({
+                url: "https://api.github.com/users/" + username,
+                method: 'GET',
+                headers: {
+                "User-Agent": "",
+                "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
+
+                }
+            }, function(error, response, body){
+                if(error){
+                    console.log(error);
+                    reject(error);
+                }
+                else{
+                    resolve(JSON.parse(body).content);
+                }
+            });
+            
+        })
     }
 };

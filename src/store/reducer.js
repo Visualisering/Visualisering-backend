@@ -15,18 +15,6 @@ module.exports = (currentState, action) => {
                 currentState, {
                     commits: commitsToSendToReducer
                 });
-        case "ADD_WH_POSITIONS":
-            let wh_positionsToSendToReducer = _.orderBy(currentState.wh_positions.concat(action.wh_positions), ['time'], ['desc']).splice(-1000);
-            return Object.assign({},
-                currentState, {
-                    wh_positions: wh_positionsToSendToReducer
-                });
-        case "ADD_WH_COMMITS":
-            let wh_commitsToSendToReducer = _.orderBy(currentState.wh_commits.concat(action.wh_commits), ['timestamp'], ['desc']).splice(-1000);
-            return Object.assign({},
-                currentState, {
-                    wh_commits: wh_commitsToSendToReducer
-                });
         default:
         console.log(currentState);
             return currentState;
