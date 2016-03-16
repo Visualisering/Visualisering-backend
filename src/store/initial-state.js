@@ -1,4 +1,6 @@
+const positions = require("../../src/cache/positions.json"),
+commits = require("../../src/cache/commits.json");
 module.exports = {
-    positions: [],
-    commits:[]
+    positions: positions,
+    commits:commits
 };

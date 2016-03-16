@@ -1,7 +1,7 @@
 "use strict";
 const   request = require('request'),
         settings = require('../../settings');
-        
+
 
 /*==============================================================================
 latestCommits() takes owner name and repo name as arguments
@@ -10,15 +10,13 @@ made to that particular repo. Resolves data back to githubrequest-service
 ==============================================================================*/
 
 module.exports = {
-    latestCommits(owner, repo) {
+    latestCommits(owner, repo,lastModified) {
         return new Promise((resolve, reject) => {
             request({
-                url: settings.github + owner + '/' + repo + '/commits' + settings.numberOfCommits,
+                url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since=' + lastModified,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "",
-                    "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
-
+                    "User-Agent": ""
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -41,13 +39,10 @@ data differs alot between a request to github and a real time webhook.
     getCommitInfo: (owner, repo, sha) => {
         return new Promise((resolve, reject) => {
             request({
-                url: settings.github + owner + '/' + repo + '/commits/' + sha,
+                url: settings.github + 'repos/' +owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
-
-
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -71,11 +66,10 @@ webhook.
     getCodeFromWebhookInfo(owner, repo, filename){
           return new Promise((resolve, reject) => {
             request({
-                url: settings.github + owner  + '/' + repo +'/contents' + filename,
+                url: settings.github + 'repos/'+ owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -88,26 +82,33 @@ webhook.
             });
         });
     },
+    
+/*==============================================================================
+getUserLocation() takes a committers username as parameter. This method is only
+called upon if comitters username is not defined in datasets/students.json.
+Sends request to github that responses with info on that user. If user has 
+specified a location in his/hers account then thats what this method resolves.
+==============================================================================*/
     getUserLocation(username){
         return new Promise((resolve,reject)=>{
              request({
-                url: "https://api.github.com/users/" + username,
+                url: settings.github + "users/" + username,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization": "token b3eeaf531e9a28a3051bc837fa871d6af04881f7"
-
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
-                    console.log(error);
                     reject(error);
                 }
-                else{
-                    resolve(JSON.parse(body).content);
+                
+                let location = JSON.parse(body).location;
+                if(location===null || location ===undefined){
+                    location = settings.defaultCity;
                 }
+                     resolve({city:location});
             });
             
-        })
+        });
     }
 };

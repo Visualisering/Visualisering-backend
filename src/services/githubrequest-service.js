@@ -1,8 +1,9 @@
 "use strict";
 
-const   getCommitsService = require('../services/getcommits-service'),
+const   getCommitsService = require('./getcommits-service'),
         sphereProcessor = require('../data-processors/sphere-getrequest'),
         matrixProcessor = require('../data-processors/matrix-getrequest'),
+        fileStat = require('./filestat-service'),
         settings = require('../../settings'), 
         repoArray = require(settings.repoArray);
 
@@ -16,12 +17,17 @@ and dispatched.
 module.exports = {
     process() {
         repoArray.map(owner => {
-            getCommitsService.latestCommits(owner.username, owner.repos)
-            .then((commitInfo) => {
-                sphereProcessor.process(commitInfo);
-                getCommitsService.getCommitInfo(owner.username, owner.repos, commitInfo[0].sha)
-                .then((specificCommit) => {
-                    matrixProcessor.process(commitInfo, owner, specificCommit.files);
+            //checks to se when last update was made. We only want to fetch
+            //new commits since that day
+            fileStat.getLatestModified()
+            .then((lastModified)=>{
+                getCommitsService.latestCommits(owner.username, owner.repos,lastModified)
+                .then((commitInfo) => {
+                    sphereProcessor.process(commitInfo);
+                    getCommitsService.getCommitInfo(owner.username, owner.repos, commitInfo[0].sha)
+                    .then((specificCommit) => {
+                        matrixProcessor.process(commitInfo, owner, specificCommit.files);
+                    });
                 });
             });
         });  
