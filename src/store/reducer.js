@@ -4,19 +4,18 @@ const _ = require("lodash");
 module.exports = (currentState, action) => {
     switch (action.type) {
         case "ADD_POSITIONS":
-            let positionsToSendToReducer = _.orderBy(currentState.positions.concat(action.positions), ['time'], ['desc']).splice(-3000);
+            let sortedPositions = _.orderBy(action.positions, ['time'], ['desc']);
             return Object.assign({},
                 currentState, {
-                    positions: positionsToSendToReducer
+                    positions: sortedPositions
                 });
         case "ADD_COMMITS":
-            let commitsToSendToReducer = _.orderBy(currentState.commits.concat(action.commits), ['timestamp'], ['desc']).splice(-3000);
+               let sortedCommits = _.orderBy(action.commits, ['timestamp'], ['desc']);
             return Object.assign({},
                 currentState, {
-                    commits: commitsToSendToReducer
+                    commits: sortedCommits
                 });
         default:
-        console.log(currentState);
             return currentState;
     }
 };

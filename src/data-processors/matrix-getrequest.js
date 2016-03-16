@@ -1,8 +1,8 @@
 "use strict";
 const   store = require("../store/store.js"),
         actions = require("../store/actions"),
-        cacheService = require('../services/cache-service');
-
+        cacheService = require('../services/cache-service'),
+        settings = require('../../settings');
 /*==============================================================================
 This module extracts data from a github getrequest and when processed dispatches
 an array with objects. Statetree is updated and data sent to client matrix module
@@ -15,6 +15,7 @@ commitFiles = files changed in each commit
 module.exports = {
     process(commitInfo, owner, commitFiles) {
         Promise.all(commitInfo.map((item) => {
+         
             return new Promise((resolve, reject) => {
                 let code = '';
                 let fileName = '';
@@ -24,12 +25,20 @@ module.exports = {
                     fileName = file.filename;
                 }))
                 .then(() => {
+                    let username;
+                    if(item.committer === null){
+                        username = settings.defaultUserName;
+                    }
+                    else{
+                        username = item.committer.login;
+                    }
+                
                     resolve({
                         repo: owner.repos,
                         owner: owner.username,
                         timestamp: item.commit.committer.date,
                         message: item.commit.message,
-                        committer: item.committer.login,
+                        committer: username,
                         filename: fileName,
                         code: new Buffer(code).toString('base64')
                     });
@@ -38,7 +47,7 @@ module.exports = {
                     resolve(commits);
                 });
             });
-        }))//when Promise.all on line 19 is fullfilled array with
+        }))//when Promise.all on line 17 is fullfilled array with
            //objects are dispatched and statetree is updated.
         .then((commitsArray) => {
             cacheService.cacheCommits(commitsArray)

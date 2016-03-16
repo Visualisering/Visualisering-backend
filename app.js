@@ -11,18 +11,17 @@ const WebSocketServer = require('ws').Server,
       wss = new WebSocketServer({server});
 
 // Start-up data ===============================================================
-
 // Get startup-data for sphere and matrix module
 githubRequestService.process();
 
 /*==============================================================================
 Update commits from github-repos defined in datasets/repos.json 23.00 every day. 
 Remove this if you only want initial data at server startup and then add a 
-webhook to your organization or repo to push real time data to client.
+webhook to your organization commit data in real time
 ==============================================================================*/
-schedule.scheduleJob('/00 00 22 * * 1-7', function() {
-  githubRequestService.process();
-});
+// schedule.scheduleJob('/00 00 22 * * 1-7', function() {
+//   githubRequestService.process();
+// });
 
 // Redux statetree =============================================================
 store.subscribe(
@@ -33,7 +32,7 @@ store.subscribe(
         type: "BACKEND_DATA",
         data
       });
-    console.log(action);
+  //  console.log(action);
     wss.broadcast(action);
     }
   }
