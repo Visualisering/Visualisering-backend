@@ -28,8 +28,7 @@ module.exports = {
                 else{
                     username = item.committer.login
                 }
-                console.log(username);
-               
+
                 studentService.find_by_username(username)
                     .then((student) => {
                         geoLocationService.getPosition(student.city).then((position) => {
