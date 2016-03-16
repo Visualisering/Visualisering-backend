@@ -1,5 +1,6 @@
 "use strict";
 const   cities = require("../../datasets/cities.json"),
+        getCommitsService = require("./getcommits-service"),
         fs = require('fs'),
         settings = require('../../settings'),
         request = require('request');
@@ -34,6 +35,15 @@ function saveCity(cityObj){
 }
 
 /*==============================================================================
+Helper function that saves city to datasets/cities.json 
+if it's not already defined
+==============================================================================*/
+  
+
+
+
+
+/*==============================================================================
 Helper function that sends request with city to open street map api and 
 hopefully gets latitude and longitude back. If it doesn't return a position
 it will resolve a cityobject with default values defined in settings file.
@@ -42,7 +52,10 @@ function getGeoLocationFromApi(city){
     return new Promise((resolve,reject) =>{
         request.get(settings.geoentry + encodeURI(city), (err, res) =>{
             if(err){
-                reject(err.statusCode);
+                resolve({
+                    lat:settings.defaultLatitude, 
+                    lng:settings.defaultLongitude
+                });
             }
             let content = JSON.parse(res.body);
             content.forEach((searchResult) =>{
@@ -65,26 +78,48 @@ function getGeoLocationFromApi(city){
         });
     });
 }
-    
+
 /*==============================================================================
-This module takes a city as argument and resolves a 
+getLocationFromGithub() takes a username as parameters. This user is not defined
+in datasets/students. Therefor we'll try to get their position from github 
+account. See services/getCommitsService/getUserLocation(). If user hasn't
+specified location i resolves default values from settings file
+==============================================================================*/   
+
+module.exports = {
+    getLocationFromGithub(username){
+        return new Promise((resolve, reject) =>{
+            getCommitsService.getUserLocation(username)
+            .then((userLocation)=>{
+              if(userLocation !== null && userLocation !== undefined){
+                resolve({
+                  city: userLocation
+                });
+              }
+              resolve({
+                    city: settings.defaultCity
+                });
+            });
+        });
+  },
+
+/*==============================================================================
+getPosition() takes a city as parameter and resolves a 
 committers position (latitude and longitude). 
 Defaults to values defined in settings file if position can't be found.
 ==============================================================================*/
-
-module.exports = {
+    
     getPosition(city){
         return new Promise((resolve, reject) =>{
             //checks if city already is defined in datasets/cities.json
             checkCityExist(city)
             .then((cityObject) =>{
-                if(cityObject === undefined){
-                    //if city doesn't exist get lat and long
-                    //from open street map
-                    resolve(getGeoLocationFromApi(city));
-                }else{
+                if(cityObject !== undefined){
                     resolve(cityObject);
                 }
+                //if city doesn't exist get lat and long
+                //from open street map
+                resolve(getGeoLocationFromApi(city));
             });
         });
     },

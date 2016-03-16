@@ -4,8 +4,16 @@ const   positions = require("../../src/cache/positions.json"),
         fs = require('fs');
 
 module.exports = {
+
+/*==============================================================================
+Caches positions both on get request to github and post from webhook.
+Currently it's save to a file but would be awesome if a database solution
+was implemented
+==============================================================================*/    
+    
     cachePositions(positionsArray){
         let newPositionsArray = positions;
+        
         return new Promise((resolve, reject) =>{
             Promise.all(positionsArray.map((position) => {
                 newPositionsArray.push(position);
@@ -20,15 +28,29 @@ module.exports = {
             });
         });
     },
+
+/*==============================================================================
+simply returns cached positions 
+==============================================================================*/       
     
     getCachedPositions(){
         return new Promise((resolve, reject) =>{
+            if(commits === null || commits === undefined){
+                reject("Cached positions file is empty no startupdata available");
+            }
             resolve(positions);
         });
     },
+
+/*==============================================================================
+Caches commits both on get request to github and post from webhook.
+Currently it's save to a file but would be awesome if a database solution
+was implemented
+==============================================================================*/       
     
     cacheCommits(commitsArray){
         let newCommitsArray = commits;
+        
         return new Promise((resolve, reject) =>{
             Promise.all(commitsArray.map((commit) => {
                 newCommitsArray.push(commit);
@@ -43,6 +65,9 @@ module.exports = {
             });
         });
     },
+/*==============================================================================
+simply returns cached commits 
+==============================================================================*/    
     
     getCachedCommits(){
         return new Promise((resolve, reject) =>{

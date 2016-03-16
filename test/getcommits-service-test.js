@@ -26,19 +26,19 @@ describe('getcommits-service', () =>{
         });
     });
     
-    it('getCommitInfo() should return object with info for one specific commit', (done) =>{
-        getcommitsService.latestCommits(settings.testOwner, settings.testRepo)
-        .then((commitInfo) =>{
-            getcommitsService.getCommitInfo(settings.testOwner, settings.testRepo, commitInfo[0].sha)
-            .then((specificCommit) =>{
-                try {
-                        expect(specificCommit).to.be.an('object');
-                        expect(specificCommit).to.have.property('files');
-                        done();
-                 } catch(x){
-                        done(x);
-                 }
-            });
-        });
-    });
+    // it('getCommitInfo() should return object with info for one specific commit', (done) =>{
+    //     getcommitsService.latestCommits(settings.testOwner, settings.testRepo)
+    //     .then((commitInfo) =>{
+    //         getcommitsService.getCommitInfo(settings.testOwner, settings.testRepo, commitInfo[0].sha)
+    //         .then((specificCommit) =>{
+    //             try {
+    //                     expect(specificCommit).to.be.an('object');
+    //                     expect(specificCommit).to.have.property('files');
+    //                     done();
+    //              } catch(x){
+    //                     done(x);
+    //              }
+    //         });
+    //     });
+    // });
 });
