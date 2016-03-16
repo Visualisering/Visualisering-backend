@@ -34,11 +34,9 @@
 
     <p>When asking for data, you will then get a response with the following content:</p>
     <ul>
-        <li>"positions": Gives an array with objects containing latitude, longitude and a unix timestamp for commits made in the repos defined in the application, updated everyday at 22 CET.</li>
-        <li>"commits": Gives an array with objects containing reponame, owner of repo, timestamp, message, committer, filename and code from the file(base64-encoded) for commits made in the repos defined in the application, updated everyday at 22 CET.</li>
-        <li>"wh_commits: Same info as in "commits" but data is recieved through posts to /commit from github-webhooks defined in repos, data is recieved in real-time</li>
-        <li>"wh_positions: Same info as in "positions" but data is recieved through post to /commit from github-webhooks defined in repos, data is recieved in real-time</li>
-    </ul>
+        <li>"positions": Gives an array with objects containing latitude, longitude and a unix timestamp for commits made in the repos defined in the application.</li>
+        <li>"commits": Gives an array with objects containing reponame, owner of repo, timestamp, message, committer, filename and code from the file(base64-encoded) for commits made in the repos defined in the application.</li>
+      </ul>
   <h2>Customize...</h2>
     <p>Please fork this repo and configure with your own repos and use your own webhooks! Read further on the  <a href="https://github.com/Visualisering/Visualisering-backend/blob/master/README.md">repo-readme</a> for instructions how to customize your application. Do you want to change something or add more functionality, please make a pullrequest!</p>
     <a href="https://github.com/Visualisering/Visualisering-backend.git">iViz repo!</a>
