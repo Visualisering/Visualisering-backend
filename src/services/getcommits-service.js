@@ -16,8 +16,7 @@ module.exports = {
                 url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since=' + lastModified,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "",
-                    "Authorzation":"token 053f18ce47c4fd350c757f6e767c83c4f8158797"
+                    "User-Agent": ""
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -43,8 +42,7 @@ data differs alot between a request to github and a real time webhook.
                 url: settings.github + 'repos/' +owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorzation":"token 053f18ce47c4fd350c757f6e767c83c4f8158797"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -71,8 +69,7 @@ webhook.
                 url: settings.github + 'repos/'+ owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorzation":"token 053f18ce47c4fd350c757f6e767c83c4f8158797"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -98,8 +95,7 @@ specified a location in his/hers account then thats what this method resolves.
                 url: settings.github + "users/" + username,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization":"token 053f18ce47c4fd350c757f6e767c83c4f8158797"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -107,8 +103,7 @@ specified a location in his/hers account then thats what this method resolves.
                 }
                 
                 let location = JSON.parse(body).location;
-                
-                if(location===null || location === undefined){
+                if(location===null || location ===undefined){
                     location = settings.defaultCity;
                 }
                      resolve({city:location});
