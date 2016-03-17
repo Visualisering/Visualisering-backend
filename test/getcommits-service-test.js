@@ -8,23 +8,23 @@ const chai = require('chai'),
 
 chai.use(chaiAsPromised);
 
-describe('getcommits-service', () =>{
-   it('latestCommits() should return an array response with correct properties', (done) =>{
-        getcommitsService.latestCommits(settings.testOwner, settings.testRepo)
-        .then((response) =>{
-             try {
-                expect(response).to.be.an('array');
-                response.map((commit) =>{
-                    expect(commit).to.have.property('committer');
-                    expect(commit).to.have.deep.property('sha');
-                    expect(commit).to.have.deep.property('committer.login');
-                });
-                done();
-             } catch(x){
-                done(x);
-             }
-        });
-    });
+// describe('getcommits-service', () =>{
+//   it('latestCommits() should return an array response with correct properties', (done) =>{
+//         getcommitsService.latestCommits(settings.testOwner, settings.testRepo)
+//         .then((response) =>{
+//              try {
+//                 expect(response).to.be.an('array');
+//                 response.map((commit) =>{
+//                     expect(commit).to.have.property('committer');
+//                     expect(commit).to.have.deep.property('sha');
+//                     expect(commit).to.have.deep.property('committer.login');
+//                 });
+//                 done();
+//              } catch(x){
+//                 done(x);
+//              }
+//         });
+//     });
     
     // it('getCommitInfo() should return object with info for one specific commit', (done) =>{
     //     getcommitsService.latestCommits(settings.testOwner, settings.testRepo)
