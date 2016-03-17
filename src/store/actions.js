@@ -1,17 +1,19 @@
 "use strict";
-const _ = require("lodash"),
-      store = require("./store");
+const settings = require('../../settings');
 
+/*==============================================================================
+Creates actions for updating statetree.
+==============================================================================*/    
 module.exports = {
   addLatestCommits(commits) {
       return {
-        type: "ADD_COMMITS",
+        type:settings.add_commits,
         commits
       };
     },
     addLatestPositions(positions) {
       return {
-        type: "ADD_POSITIONS",
+        type:settings.add_positions,
         positions
       };
     }

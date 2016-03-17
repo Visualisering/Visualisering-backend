@@ -4,8 +4,8 @@ const sphere = require("../data-processors/sphere-webhook"),
 
 /*==============================================================================
 When push is made to an organization on github with an active webhook Github
-sends a post with JSOn data to lib/http-server endpoint /commit. That JSON data
-is sent here where it's simply is forwarded to sphere and matrix data-processors
+sends a post with JSON data to lib/http-server endpoint /commit. That JSON data
+is forwarded here and passed on to sphere and matrix data-processors.
 ==============================================================================*/
 module.exports = {
   process(githubPush) {

@@ -4,7 +4,6 @@
 
  module.exports = {
   
-  
 /*==============================================================================
 checks when cache was updated last time. Result is used in:
 See /services/getcommits-service

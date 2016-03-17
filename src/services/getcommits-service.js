@@ -2,7 +2,6 @@
 const   request = require('request'),
         settings = require('../../settings');
 
-
 /*==============================================================================
 latestCommits() takes owner name and repo name as arguments
 Sends get request to github that responses with commit info from all commits 
@@ -16,7 +15,8 @@ module.exports = {
                 url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since='+ lastModified,
                 method: 'GET',
                 headers: {
-                    "User-Agent": ""
+                    "User-Agent": settings.userAgent
+                    //,"Authorization":settings.GITHUB_TOKEN
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -36,13 +36,16 @@ commit.Gets info on that certain commit from github. Resolves that data back to
 githubrequest-service.This function is very similar to the one below but JSON 
 data differs alot between a request to github and a real time webhook.
 ==============================================================================*/    
+    
     getCommitInfo: (owner, repo, sha) => {
         return new Promise((resolve, reject) => {
             request({
                 url: settings.github + 'repos/' +owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": settings.userAgent
+                //,"Authorization":settings.GITHUB_TOKEN
+
                 }
             }, function(error, response, body){
                 if(error){
@@ -69,7 +72,8 @@ webhook.
                 url: settings.github + 'repos/'+ owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": ""
+                "User-Agent": settings.userAgent
+                //,"Authorization":settings.GITHUB_TOKEN
                 }
             }, function(error, response, body){
                 if(error){

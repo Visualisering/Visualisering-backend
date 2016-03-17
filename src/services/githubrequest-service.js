@@ -21,11 +21,19 @@ module.exports = {
             //new commits since that day
             fileStat.getLatestModified()
             .then((lastModified)=>{
+                
+                //get latest commits from predefined repos
                 getCommitsService.latestCommits(owner.username, owner.repos,lastModified)
                 .then((commitInfo) => {
+                    
+                    //send latest commits to sphere
                     sphereProcessor.process(commitInfo);
+                    
+                    //get sha number that is neccessary to extract modified ccommit code
                     getCommitsService.getCommitInfo(owner.username, owner.repos, commitInfo[0].sha)
                     .then((specificCommit) => {
+                        
+                        //send to matrix
                         matrixProcessor.process(commitInfo, owner, specificCommit.files);
                     });
                 });
