@@ -12,7 +12,6 @@ const WebSocketServer = require('ws').Server,
 
 // Start-up data ===============================================================
 // Get startup-data for sphere and matrix module
-console.log(store.getState());
 githubRequestService.process();
 
 /*==============================================================================

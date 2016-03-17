@@ -13,11 +13,11 @@ module.exports = {
     latestCommits(owner, repo,lastModified) {
         return new Promise((resolve, reject) => {
             request({
-                url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since=' + lastModified,
+                url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since='+ lastModified,
                 method: 'GET',
                 headers: {
                     "User-Agent": "",
-                    "Authorzation":"token 5c4a8c8993753f21754962c9d57575589442d10c"
+                  "Authorization": "token 4f9a3c40c267c735f0de456fe3da61d473de7fb4"
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -44,7 +44,7 @@ data differs alot between a request to github and a real time webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": "",
-                "Authorzation":"token 5c4a8c8993753f21754962c9d57575589442d10c"
+                "Authorization":"token 4f9a3c40c267c735f0de456fe3da61d473de7fb4"
                 }
             }, function(error, response, body){
                 if(error){
@@ -72,7 +72,7 @@ webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": "",
-                "Authorzation":"token 5c4a8c8993753f21754962c9d57575589442d10c"
+                "Authorization":"token 4f9a3c40c267c735f0de456fe3da61d473de7fb4"
                 }
             }, function(error, response, body){
                 if(error){
@@ -83,38 +83,6 @@ webhook.
                     resolve(JSON.parse(body).content);
                 }
             });
-        });
-    },
-    
-/*==============================================================================
-getUserLocation() takes a committers username as parameter. This method is only
-called upon if comitters username is not defined in datasets/students.json.
-Sends request to github that responses with info on that user. If user has 
-specified a location in his/hers account then thats what this method resolves.
-==============================================================================*/
-    getUserLocation(username){
-        return new Promise((resolve,reject)=>{
-             request({
-                url: settings.github + "users/" + username,
-                method: 'GET',
-                headers: {
-                "User-Agent": "",
-                "Authorization":"token 5c4a8c8993753f21754962c9d57575589442d10c"
-                }
-            }, function(error, response, body){
-                if(error){
-                    reject(error);
-                }
-                
-                let location = JSON.parse(body).location;
-                
-                if(location===null || location === undefined){
-                    location = settings.defaultCity;
-                }
-                console.log(location)
-                     resolve({city:location});
-            });
-            
         });
     }
 };
