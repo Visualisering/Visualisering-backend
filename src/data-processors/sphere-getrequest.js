@@ -3,7 +3,6 @@
 const   geoLocationService = require('../services/geolocation-service'),
         studentService = require('../services/student-service'),
         cacheService = require('../services/cache-service'),
-        settings = require('../../settings'),
         store = require('../store/store.js'),
         actions = require('../store/actions');
         
@@ -18,21 +17,11 @@ sphere client through websockets.
 
 module.exports = {
     process(commitInfo){
-        let count = 0
         Promise.all(commitInfo.map((item) => {
             return new Promise((resolve, reject) => {
-                let username;
-                if(item.committer===null){
-                    username = settings.defaultUserName;
-                }
-                else{
-                    username = item.committer.login
-                }
-
-                studentService.find_by_username(username)
+                studentService.find_by_username(item.committer.login)
                     .then((student) => {
                         geoLocationService.getPosition(student.city).then((position) => {
-                            
                             resolve({
                                 lng: position.lng,
                                 lat: position.lat,
