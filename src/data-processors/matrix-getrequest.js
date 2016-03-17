@@ -38,7 +38,7 @@ module.exports = {
                     resolve(commits);
                 });
             });
-        }))//when Promise.all on line 19 is fullfilled array with
+        }))//when Promise.all on line 17 is fullfilled array with
            //objects are dispatched and statetree is updated.
         .then((commitsArray) => {
             cacheService.cacheCommits(commitsArray)

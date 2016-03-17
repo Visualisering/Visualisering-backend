@@ -1,7 +1,5 @@
 "use strict";
 const   settings = require('../../settings'),
-        store = require('../store/store.js'),
-        actions = require('../store/actions'),
         getCommitsService = require('../services/getcommits-service'),
         cacheService = require('../services/cache-service');
 
@@ -25,9 +23,8 @@ This module extracts data from a github webhook.
 commitInfo = contains data of all commits made in push to github 
 organization or repo.
 getCodeFromWebhookInfo() = extracts changed code in each commit.
-When processed module dispatches an array of objects to statetree.
-Statetree is updated and new data is sent through websockets to client matrix
-module.
+When processed, module resolves an array of commits to be cached 
+in cache/commits.json
 ==============================================================================*/ 
 
 module.exports = {
@@ -52,13 +49,9 @@ module.exports = {
                });
              });
          }))
-         //when Promise.all on line 34 is fulfilled dispatch array with objects
-         //and update statetree
+         //when Promise.all on line 32 is fulfilled cache commits to file
          .then((commitsArray) =>{
-            cacheService.cacheCommits(commitsArray)
-            .then(() =>{
-               cacheService.getCachedCommits()
-            });
+            cacheService.cacheCommits(commitsArray);
         });
     }
 };

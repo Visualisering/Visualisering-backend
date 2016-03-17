@@ -35,15 +35,6 @@ function saveCity(cityObj){
 }
 
 /*==============================================================================
-Helper function that saves city to datasets/cities.json 
-if it's not already defined
-==============================================================================*/
-  
-
-
-
-
-/*==============================================================================
 Helper function that sends request with city to open street map api and 
 hopefully gets latitude and longitude back. If it doesn't return a position
 it will resolve a cityobject with default values defined in settings file.
@@ -79,29 +70,7 @@ function getGeoLocationFromApi(city){
     });
 }
 
-/*==============================================================================
-getLocationFromGithub() takes a username as parameters. This user is not defined
-in datasets/students. Therefor we'll try to get their position from github 
-account. See services/getCommitsService/getUserLocation(). If user hasn't
-specified location i resolves default values from settings file
-==============================================================================*/   
-
 module.exports = {
-    getLocationFromGithub(username){
-        return new Promise((resolve, reject) =>{
-            getCommitsService.getUserLocation(username)
-            .then((userLocation)=>{
-              if(userLocation !== null && userLocation !== undefined){
-                resolve({
-                  city: userLocation
-                });
-              }
-              resolve({
-                    city: settings.defaultCity
-                });
-            });
-        });
-  },
 
 /*==============================================================================
 getPosition() takes a city as parameter and resolves a 
