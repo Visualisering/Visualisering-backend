@@ -16,8 +16,7 @@ module.exports = {
                 url: settings.github + 'repos/'+ owner + '/' + repo + '/commits?since='+ lastModified,
                 method: 'GET',
                 headers: {
-                    "User-Agent": "",
-                  "Authorization": "token 4f9a3c40c267c735f0de456fe3da61d473de7fb4"
+                    "User-Agent": ""
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -43,8 +42,7 @@ data differs alot between a request to github and a real time webhook.
                 url: settings.github + 'repos/' +owner + '/' + repo + '/commits/' + sha,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization":"token 4f9a3c40c267c735f0de456fe3da61d473de7fb4"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
@@ -71,8 +69,7 @@ webhook.
                 url: settings.github + 'repos/'+ owner  + '/' + repo +'/contents' + filename,
                 method: 'GET',
                 headers: {
-                "User-Agent": "",
-                "Authorization":"token 4f9a3c40c267c735f0de456fe3da61d473de7fb4"
+                "User-Agent": ""
                 }
             }, function(error, response, body){
                 if(error){
