@@ -21,9 +21,9 @@ You can change the time in settings.js.
 If you choose to use webhooks this is not neccessary since you will get
 all commits in realtime instead.
 ==============================================================================*/
-//schedule.scheduleJob(settings.timeToUpdate, function() {
-//  githubRequestService.process();
-//});
+schedule.scheduleJob(settings.timeToUpdate, function() {
+  githubRequestService.process();
+});
 
 // Redux statetree =============================================================
 store.subscribe(
