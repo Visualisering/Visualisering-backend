@@ -98,7 +98,7 @@ New data will also be pushed from the websocket at a scheduled event once a day 
 You will find more information about using websockets and writing client-side applications using websockets on MDN: 
 https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
 
-If you just want to take a look at the data you can use a Websocket client such as the https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en">
+If you just want to take a look at the data you can use a Websocket client such as the https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en"
 Simple WebSocket Client - plugin to Chrome or using an online test-client such as http://www.websocket.org/echo.html  
 Simply connect to the websocket server and send the message ```{"type":"WS_REQUEST_DATA"}``` to look at the data available.
 
