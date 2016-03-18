@@ -16,7 +16,7 @@ module.exports = {
                 method: 'GET',
                 headers: {
                     "User-Agent": settings.userAgent
-                    //,"Authorization":settings.GITHUB_TOKEN
+                    //,"Authorization": settings.GITHUB_TOKEN
                     }
             }, function(error, response, body) {
                 if (error) {
@@ -44,7 +44,7 @@ data differs alot between a request to github and a real time webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": settings.userAgent
-                //,"Authorization":settings.GITHUB_TOKEN
+                //,"Authorization": settings.GITHUB_TOKEN
 
                 }
             }, function(error, response, body){
@@ -73,7 +73,7 @@ webhook.
                 method: 'GET',
                 headers: {
                 "User-Agent": settings.userAgent
-                //,"Authorization":settings.GITHUB_TOKEN
+                //,"Authorization": settings.GITHUB_TOKEN
                 }
             }, function(error, response, body){
                 if(error){

@@ -16,7 +16,7 @@ let settings = {
     GITHUB_TOKEN:"",
     
     //https://github.com/node-schedule/node-schedule
-    timeToUpdate: '/00 00 22 * * 1-7',
+    timeToUpdate: "/00 00 22 * * 1-7",
     
     //default values to fall back on if github username is undefined
     defaultCity: "Kalmar",

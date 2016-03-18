@@ -71,3 +71,33 @@ The application will update the state-tree with information in real-time if you 
 ####Settings
 In settings.js, you can change number of commits retrieved from each repo, and defaultCity, defaultLongitude and defaultLatitude to use if no location is found and and defaultCode if github-commit-code is undefined.
 
+####Connect client to websocket
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Create your own connection to the websocket-server by connecting to:
+
+```
+ws://iviz-back.herokuapp.com/
+```
+
+Depending on framework and libraries used this can be done in different ways, but usually, you create a connection to the websocket-server by using:
+
+```
+let ws = new WebSocket("wss://iviz-back.herokuapp.com");
+```
+Recieve data from websocket
+Once connected to the websocket-server, you can get hold of the data through sending the message:
+````
+{"type":"WS_REQUEST_DATA"} to the server. This can be done by using: 
+
+ws.send({"type":"WS_REQUEST_DATA"});
+```
+New data will also be pushed from the websocket at a scheduled event once a day or at server startup.
+You will find more information about using websockets and writing client-side applications using websockets on MDN: 
+https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+
+If you just want to take a look at the data you can use a Websocket client such as the https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en">
+Simple WebSocket Client - plugin to Chrome or using an online test-client such as http://www.websocket.org/echo.html  
+Simply connect to the websocket server and send the message ```{"type":"WS_REQUEST_DATA"}``` to look at the data available.
+
+
+

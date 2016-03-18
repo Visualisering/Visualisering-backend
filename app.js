@@ -9,7 +9,7 @@ const WebSocketServer = require('ws').Server,
       schedule = require('node-schedule'),
       server = httpServer.init(),
       wss = new WebSocketServer({server}),
-      settings = require('settings.js');
+      settings = require('./settings.js');
 
 // Start-up data ===============================================================
 // Get startup-data for sphere and matrix module
