@@ -65,8 +65,7 @@ This will request data from github server start and on a schedule event everyday
 To get hold of the positions, make sure to add information about the user (city and github-username) in ```students.json```. 
 
 ####Important
-You have 5000 requests to github/hour
-Please make sure to add a github-authorization-token as an environment-variable on your server, add the name of the variable in settings.js and uncomment this information in getcommits-service.js to avoid limitations in number of requests that is possible to make to github. Also, add email-address to correct userAgent in settings.js 
+You have 5000 requests to github/hour. Please make sure to add a github-authorization-token as an environment-variable on your server, add the name of the variable in settings.js and uncomment this information in getcommits-service.js to avoid limitations in number of requests that is possible to make to github. Also, add email-address to correct userAgent in settings.js 
 
 ####Github webhook
 The application will update the state-tree with information in real-time if you add a webhook to a repo with the address to your own deployment and the endpoint ```/commit```. For more information about github-webhooks, please look [here](https://developer.github.com/webhooks/).
